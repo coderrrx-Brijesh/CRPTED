@@ -1,8 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: "Roboto", serif;
+  font-weight: 300;
+  font-style: normal;
+}
 @layer base {
+
   :root {
+     margin: 0;
+     padding: 0;
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;

@@ -1,11 +1,10 @@
 import { Button } from "../../components/ui/button"
 
-export const HomePage= ()=>{
-    console.log("home");
+export const SellCryptoPage= ()=>{
     return (
         <div>
             <Button>
-                home
+                sell
             </Button>
         </div>
     )
