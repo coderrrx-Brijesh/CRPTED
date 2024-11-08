@@ -1,8 +1,8 @@
-# React + Vite
+# CRPTED Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend codebase for the **CRPTED** project, a React-based web application designed for managing cryptocurrency transactions. It includes navigation, multiple pages, and a user dropdown menu with the help of [React Router](https://reactrouter.com/) for client-side routing and [ShadCN UI](https://ui.shadcn.dev/) for components.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Project Structure
+
