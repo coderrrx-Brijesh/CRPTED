@@ -7,7 +7,7 @@ import "./HomePage.css";
 export const HomePage = () => {
     console.log("home");
     return (
-        <div className="home-page-container">
+        <div  className="home-page-container">
             <div className="left-container">
                 <h1 className="text-7xl font-bold text-white leading-snug">
                     Buy & Sell Digital Assets In The Cryptex

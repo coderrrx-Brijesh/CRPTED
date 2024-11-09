@@ -3,18 +3,19 @@ import LogoImg from "../assets/Icons/Logo.png";
 import { Button } from '../components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../components/ui/dropdown-menu';
+import {WalletButton} from "./NavBarComponents/WalletButton"
 
 export const NavBar = () => {
     return (
         <div>
-            <nav className="flex items-center justify-between p-4 bg-black min-w-96">
+            <nav className="flex items-center justify-between p-4 bg-black min-w-96 font-semibold text-2xl">
                 {/*  Logo and App Title */}
-                <div className="flex items-center space-x-4">
-                    <div id="AppTitle" className="text-white text-lg font-bold">
+                <div className="flex items-center space-x-4 bg-white rounded-md p-2.5 ml-4 ">
+                    <div id="AppTitle" className="text-black text-3xl font-bold">
                         CRPTED
                     </div>
                     <div id="Logo">
-                        <img src={LogoImg} alt="Logo" className="h-8 w-auto" />
+                        <img src={LogoImg} alt="Logo" className="h-10 w-auto" />
                     </div>
                 </div>
 
@@ -27,14 +28,19 @@ export const NavBar = () => {
                     <a href="/service" className="text-gray-300 hover:text-white">Services</a>
                     <a href="/contact" className="text-gray-300 hover:text-white">Contact</a>
                 </div>
-
+                <div>
+                </div>
+                {/* wallet button */}
+                <div>
+                    <WalletButton onClick ={()=>{alert("hi")}}></WalletButton>
+                </div>
                 {/* User Avatar with Dropdown Menu */}
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <Button variant="ghost">
+                        <Button variant="outlined">
                             <Avatar className="w-8 h-8">
                                 <AvatarImage src="https://example.com/avatar.jpg" alt="User Avatar" />
-                                <AvatarFallback></AvatarFallback>
+                                <AvatarFallback>A</AvatarFallback>
                             </Avatar>
                         </Button>
                     </DropdownMenuTrigger>
@@ -51,6 +57,7 @@ export const NavBar = () => {
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
+                    
             </nav>
         </div>
     );

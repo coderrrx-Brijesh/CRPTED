@@ -7,9 +7,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Connecting to database
-const connectDB = require('./config/database');
-connectDB();
 
 // all endpoint swill be handled by mainrouter
 const mainRouter = require('./Routes/Route');
