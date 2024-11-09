@@ -32,7 +32,8 @@
     "react-router-dom": "^6.28.0",
     "sonner": "^1.7.0",
     "tailwind-merge": "^2.5.4",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "typed.js": "^2.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
@@ -48,5 +49,10 @@
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
     "vite": "^5.4.10"
-  }
+  },
+  "description": "This is the frontend codebase for the **CRPTED** project, a React-based web application designed for managing cryptocurrency transactions. It includes navigation, multiple pages, and a user dropdown menu with the help of [React Router](https://reactrouter.com/) for client-side routing and [ShadCN UI](https://ui.shadcn.dev/) for components.",
+  "main": "eslint.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
