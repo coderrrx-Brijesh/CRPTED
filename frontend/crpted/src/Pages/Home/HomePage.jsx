@@ -5,6 +5,7 @@ import { TypedComponent } from "./PageComponents/Typed";
 import TopCryptoDetails from "./PageComponents/TopCryptoDetails";
 import MarketUpdate from "./PageComponents/AllCoinsUpdates/MarketUpdate";
 import "./HomePage.css";
+// import LoginPopup from './PageComponents/LoginPopup';
 
 export const HomePage = () => {
     console.log("home");
