@@ -23,12 +23,14 @@
   .crypto-tabs .active-tab {
     background-color: #555;
   }
-  
   .crypto-cards {
     display: flex;
     gap: 20px;
   }
-  
+  #top-crypto-list{
+    display: flex;
+    flex-direction: row;
+  }
   .crypto-card {
     background-color: #222;
     padding: 20px;
