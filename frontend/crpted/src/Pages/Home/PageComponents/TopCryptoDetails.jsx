@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './CryptoDetails.css';
-const CryptoDetails = () => {
+import './TopCryptoDetails.css';
+const TopCryptoDetails = () => {
   const [cryptoData, setCryptoData] = useState([]);
   useEffect(() => {
     // Fetch live data from CoinGecko API (includes market cap and image URLs)
@@ -10,7 +10,8 @@ const CryptoDetails = () => {
           'https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr'
         );
         const data = await response.json();
-        const fetchedData = data.map((crypto) => ({
+        const top4Data=data.slice(0,4);
+        const fetchedData = top4Data.map((crypto) => ({
           name: crypto.name,
           symbol: crypto.symbol.toUpperCase(),
           price: crypto.current_price,
@@ -38,25 +39,27 @@ const CryptoDetails = () => {
         <button>Opensea</button>
         <button>Marketplace</button>
       </div>
-      <div className="crypto-cards">
-        {cryptoData.map((crypto, index) => (
-          <div key={index} className="crypto-card">
-            <div className="crypto-header">
-              <span>{crypto.name} ({crypto.symbol})</span> 
-              <img src={crypto.img} alt={`${crypto.name} logo`} className="crypto-logo" />
+      <div id='top-crypto-list'>
+        <div className="crypto-cards">
+          {cryptoData.map((crypto, index) => (
+            <div key={index} className="crypto-card">
+              <div className="crypto-header">
+                <span>{crypto.name} ({crypto.symbol})</span> 
+                <img src={crypto.img} alt={`${crypto.name} logo`} className="crypto-logo" />
+              </div>
+              <div className="crypto-price">INR {crypto.price.toFixed(2)}</div>
+              <div className="crypto-footer">
+                <span>Market Cap: INR {crypto.marketCap.toLocaleString()}</span>
+                <span className={crypto.change >= 0 ? 'price-up' : 'price-down'}>
+                  {crypto.change >= 0?`+${crypto.change.toFixed(2)}%`:`${crypto.change.toFixed(2)}%`}
+                </span>
+              </div>
             </div>
-            <div className="crypto-price">INR {crypto.price.toFixed(2)}</div>
-            <div className="crypto-footer">
-              <span>Market Cap: INR {crypto.marketCap.toLocaleString()}</span>
-              <span className={crypto.change >= 0 ? 'price-up' : 'price-down'}>
-                {crypto.change >= 0?`+${crypto.change.toFixed(2)}%`:`${crypto.change.toFixed(2)}%`}
-              </span>
-            </div>
-          </div>
-        ))}
+              ))}
+      </div>
       </div>
     </div>
   );
 };
 
-export default CryptoDetails;
+export default TopCryptoDetails;

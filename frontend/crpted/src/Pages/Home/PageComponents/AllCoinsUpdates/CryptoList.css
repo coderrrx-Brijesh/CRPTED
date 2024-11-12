@@ -1,6 +1,7 @@
-.crypto-list {
-    width: 100%;
-  }
+#crypto-list{
+  height: 35rem;
+  overflow-y: scroll;
+}
   
   .table-header, .crypto-item {
     display: flex;

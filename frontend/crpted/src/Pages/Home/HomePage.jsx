@@ -3,7 +3,7 @@ import { Button } from "../../components/ui/button";
 import homePageBanner from "../../assets/hero-banner.png";
 import { TypedComponent } from "./PageComponents/Typed"; // imported typed component
 import "./HomePage.css";
-import CryptoDetails from "./PageComponents/CryptoDetails";
+import TopCryptoDetails from "./PageComponents/TopCryptoDetails";
 import MarketUpdate from "./PageComponents/AllCoinsUpdates/MarketUpdate";
 export const HomePage = () => {
     console.log("home");
@@ -25,7 +25,7 @@ export const HomePage = () => {
                     <img src={homePageBanner} className="home-page-banner" alt="hero-banner" />
                 </div>
             </div>
-            <CryptoDetails/>
+            <TopCryptoDetails/>
             <MarketUpdate />
         </div>
     );

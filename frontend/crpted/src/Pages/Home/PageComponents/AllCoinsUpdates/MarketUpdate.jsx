@@ -6,7 +6,7 @@ const MarketUpdate = () => {
   const [activeTab, setActiveTab] = useState('Crypto');
   return (
     <div className="market-update-container">
-      <h2>Market Update</h2>
+      <h2 className='text-2xl  font-bold mb-10'>Market Update</h2>
       <div className="tabs">
         <button id="tab-btn" onClick={() => setActiveTab('Crypto')} className={activeTab === 'Crypto' ? 'active' : ''}>View All</button>
         <button id="tab-btn" onClick={() => setActiveTab('Metaverse')}>Metaverse</button>

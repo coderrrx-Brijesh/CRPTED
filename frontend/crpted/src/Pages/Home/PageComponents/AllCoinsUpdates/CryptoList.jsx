@@ -21,7 +21,7 @@ const CryptoList = ({ activeTab }) => {
   }, [activeTab]);
 
   return (
-    <div className="crypto-list">
+    <div>
       <div className="table-header">
         <span>#</span>
         <span>Name</span>
@@ -30,9 +30,11 @@ const CryptoList = ({ activeTab }) => {
         <span>Market Cap</span>
         <span>Last 7 Days</span>
       </div>
-      {cryptoData.map((crypto, index)=>(
-        <CryptoItem key={crypto.id} index={index+1}crypto={crypto}/>
-      ))}
+      <div id='crypto-list'>
+        {cryptoData.map((crypto, index)=>(
+          <CryptoItem key={crypto.id} index={index+1}crypto={crypto}/>
+        ))}
+      </div>
     </div>
   );
 };
