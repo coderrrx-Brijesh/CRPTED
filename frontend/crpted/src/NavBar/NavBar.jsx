@@ -9,7 +9,7 @@ export const NavBar = () => {
     return (
         <div>
             <nav className="flex items-center justify-between p-4 bg-black min-w-96 font-semibold text-2xl">
-                {/*  Logo and App Title */}
+                {/*  Logo and App Titlllee */}
                 <div className="flex items-center space-x-4 bg-white rounded-md p-2.5 ml-4 ">
                     <div id="AppTitle" className="text-black text-3xl font-bold">
                         CRPTED
