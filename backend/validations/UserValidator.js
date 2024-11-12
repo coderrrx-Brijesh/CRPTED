@@ -1,22 +1,38 @@
 const { z } = require('zod');
-
-const UserValidationSchema = z.object({
-  username: z .string() .min(3, "Username must be at least 3 characters")
-              .max(30, "Username must be at most 30 characters").trim()
-              .toLowerCase(),
-  password: z .string().min(6, "Password must be at least 6 characters"),
-
- firstName: z .string().max(50, "First name must be at most 50 characters").trim(),
-
-  lastName: z .string().max(50, "Last name must be at most 50 characters").trim(),
-
-  walletAddresses: z.array(
-    z.object({
-      currency: z.string().nonempty("Currency is required"),
-      address: z.string().nonempty("Address is required"),
-      createdAt: z.date().default(() => new Date()),
-    })
-  ).optional() // Allowing empty array if no wallet addresses
+// Zod validation schema for the wallet address
+const walletAddressSchema = z.object({
+  currency: z.string().min(1, "Currency is required"),  // Ensure the currency is provided
+  address: z.string().min(1, "Address is required"),
 });
- 
-module.exports  = UserValidationSchema
+
+// Zod validation schema for the User
+const SignUpSchemaValidator = z.object({
+  username: z.string()
+    .min(3, "Username must be at least 3 characters")
+    .max(30, "Username cannot exceed 30 characters")
+    .trim()
+    .toLowerCase(),
+  password: z.string()
+    .min(8, "Password must be at least 6 characters"),
+  firstName: z.string()
+    .max(50, "First name cannot exceed 50 characters")
+    .trim()
+    .min(1, "First name is required"),
+  lastName: z.string()
+    .max(50, "Last name cannot exceed 50 characters")
+    .trim()
+    .min(1, "Last name is required"),
+  walletAddresses: z.array(walletAddressSchema).refine(walletAddresses => walletAddresses.length > 0, "At least one wallet address is required"),
+});
+const SignInSchemaValidator = z.object({
+  username: z.string()
+    .min(3, "Username must be at least 3 characters")
+    .max(30, "Username cannot exceed 30 characters")
+    .trim()
+    .toLowerCase(),
+  password: z.string()
+    .min(8, "Password must be at least 6 characters"),
+});
+
+
+module.exports={SignUpSchemaValidator,SignInSchemaValidator};
