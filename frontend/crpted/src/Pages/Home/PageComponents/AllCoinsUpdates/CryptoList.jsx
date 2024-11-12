@@ -1,19 +1,18 @@
-import React, {useEffect,useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import CryptoItem from './CryptoItem';
-import './CryptoList.css';
 
 const CryptoList = ({ activeTab }) => {
   const [cryptoData, setCryptoData] = useState([]);
+
   useEffect(() => {
-    // Fetching data from CoinGecko API
     const fetchData = async () => {
-      try{
-        const response=await fetch(
+      try {
+        const response = await fetch(
           'https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr'
         );
         const data = await response.json();
         setCryptoData(data);
-      }catch (error) {
+      } catch (error) {
         console.error('Error fetching crypto data:', error);
       }
     };
@@ -22,7 +21,7 @@ const CryptoList = ({ activeTab }) => {
 
   return (
     <div>
-      <div className="table-header">
+      <div className="flex justify-between items-center p-2 border-b border-gray-700 text-gray-400 font-bold">
         <span>#</span>
         <span>Name</span>
         <span>Last Price</span>
@@ -30,9 +29,9 @@ const CryptoList = ({ activeTab }) => {
         <span>Market Cap</span>
         <span>Last 7 Days</span>
       </div>
-      <div id='crypto-list'>
-        {cryptoData.map((crypto, index)=>(
-          <CryptoItem key={crypto.id} index={index+1}crypto={crypto}/>
+      <div className="h-[35rem] overflow-y-scroll">
+        {cryptoData.map((crypto, index) => (
+          <CryptoItem key={crypto.id} index={index + 1} crypto={crypto} />
         ))}
       </div>
     </div>

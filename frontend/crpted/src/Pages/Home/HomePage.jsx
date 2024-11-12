@@ -1,31 +1,32 @@
 import React from "react";
 import { Button } from "../../components/ui/button";
 import homePageBanner from "../../assets/hero-banner.png";
-import { TypedComponent } from "./PageComponents/Typed"; // imported typed component
-import "./HomePage.css";
+import { TypedComponent } from "./PageComponents/Typed";
 import TopCryptoDetails from "./PageComponents/TopCryptoDetails";
 import MarketUpdate from "./PageComponents/AllCoinsUpdates/MarketUpdate";
+import "./HomePage.css";
+
 export const HomePage = () => {
     console.log("home");
     return (
-        <div  id="home-page-container">
-            <div id="intro-container">
-                <div className="left-container">
+        <div className="bg-primary">
+            <div className="h-screen w-full flex justify-between px-8 pt-0">
+                <div className="ml-8 flex flex-col gap-10 w-2/5 items-start justify-center">
                     <h1 className="text-7xl font-bold text-white leading-snug">
                         Buy & Sell Digital Assets In The Cryptex
                     </h1>
                     <p className="text-gray-400 text-lg">
-                        Coin Cryptex is the <TypedComponent className="features" /> <br/> way to buy & sell crypto asset exchange.
+                        Coin Cryptex is the <TypedComponent className="features" /> <br /> way to buy & sell crypto asset exchange.
                     </p>
                     <Button className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700">
                         Get Started Now
                     </Button>
                 </div>
-                <div className="right-container">
-                    <img src={homePageBanner} className="home-page-banner" alt="hero-banner" />
+                <div className="mr-8 flex flex-col items-center gap-10 w-2/5 justify-center">
+                    <img src={homePageBanner} className="w-full h-4/5 object-contain filter drop-shadow-lg slow-bounce"   alt="hero-banner" />
                 </div>
             </div>
-            <TopCryptoDetails/>
+            <TopCryptoDetails />
             <MarketUpdate />
         </div>
     );
