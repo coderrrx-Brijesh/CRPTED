@@ -1,0 +1,50 @@
+/* Style for the search bar container */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #2c2f33;
+    padding: 10px 15px;
+    border-radius: 25px;
+    width: 35%;
+    max-width: 300px;
+    height: 3rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Style for the search input field */
+  .search-bar input {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 16px;
+    width: 100%;
+    margin-left: 10px;
+    caret-color: #fff;
+  }
+  
+  /* Style for the search icon */
+  .search-bar .search-icon {
+    color: #aaa;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  /* Hover and focus styles for interactivity */
+  .search-bar:hover {
+    background-color: #3a3f45;
+  }
+  
+  .search-bar input:focus {
+    outline: none;
+  }
+  
+  .search-bar input::placeholder {
+    color: #aaa;
+  }
+  
+  .search-bar .search-icon:hover {
+    color: #fff;
+  }
+  

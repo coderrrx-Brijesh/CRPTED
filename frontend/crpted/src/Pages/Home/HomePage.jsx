@@ -5,7 +5,7 @@ import { TypedComponent } from "./PageComponents/Typed";
 import TopCryptoDetails from "./PageComponents/TopCryptoDetails";
 import MarketUpdate from "./PageComponents/AllCoinsUpdates/MarketUpdate";
 import "./HomePage.css";
-// import LoginPopup from './PageComponents/LoginPopup';
+
 
 export const HomePage = () => {
     console.log("home");
@@ -24,7 +24,7 @@ export const HomePage = () => {
                     </Button>
                 </div>
                 <div className="mr-8 flex flex-col items-center gap-10 w-2/5 justify-center">
-                    <img src={homePageBanner} className="w-full h-4/5 object-contain filter drop-shadow-lg slow-bounce"   alt="hero-banner" />
+                    <img src={homePageBanner} id="home-banner-img" className="w-full h-4/5 object-contain filter drop-shadow-lg slow-bounce "   alt="hero-banner" />
                 </div>
             </div>
             <TopCryptoDetails />

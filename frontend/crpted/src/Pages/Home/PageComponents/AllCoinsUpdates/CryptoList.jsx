@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CryptoItem from './CryptoItem';
 
-const CryptoList = ({ activeTab }) => {
+const CryptoList = ({ activeTab,cryptoID }) => {
   const [cryptoData, setCryptoData] = useState([]);
 
   useEffect(() => {
@@ -30,9 +30,22 @@ const CryptoList = ({ activeTab }) => {
         <span>Last 7 Days</span>
       </div>
       <div className="h-[35rem] overflow-y-scroll">
-        {cryptoData.map((crypto, index) => (
+      {/* used Immediately Invoked Function Expression (IIFE) instead defining outside and calling*/}
+      {cryptoID ? (()=>{
+         const filteredCoins = cryptoData.filter((crypto) => 
+          crypto.id.toLowerCase().startsWith(cryptoID.toLowerCase())
+        );
+         if (filteredCoins.length>0) {
+          return filteredCoins.map((crypto, index)=>( /*used implicit return using () instead of using {} after arrow function hence no need of extra return statement or manual return*/
+           <CryptoItem key={crypto.id} index={index + 1} crypto={crypto}/>
+          ))
+         }
+        return null
+       })()
+       :
+        (cryptoData.map((crypto, index) => (
           <CryptoItem key={crypto.id} index={index + 1} crypto={crypto} />
-        ))}
+        )))}
       </div>
     </div>
   );
