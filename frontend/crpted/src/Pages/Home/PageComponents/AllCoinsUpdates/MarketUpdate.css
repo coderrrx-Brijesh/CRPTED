@@ -1,0 +1,5 @@
+#market-header{
+    display: flex;
+    align-items: top;
+    justify-content: space-between;
+}

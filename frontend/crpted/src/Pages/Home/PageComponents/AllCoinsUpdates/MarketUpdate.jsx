@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
 import CryptoList from './CryptoList';
-
+import { SearchBar } from './SearchBar';
+import './MarketUpdate.css';
 const MarketUpdate = () => {
   const [activeTab, setActiveTab] = useState('Crypto');
-
+  const [cryptoID,setCryptoID]=useState('');
+  function onSearch(cyptoName){
+    setCryptoID(cyptoName);
+  }
   return (
     <div className="m-10 bg-black p-5 rounded-lg text-white h-screen">
-      <h2 className="text-2xl font-bold mb-10">Market Update</h2>
+      <div id="market-header">
+        <h2 className="text-2xl font-bold mb-10">Market Update</h2>
+        <SearchBar onSearch={onSearch}></SearchBar>
+      </div>
       <div className="flex justify-around items-center mb-4">
         <button
           onClick={() => setActiveTab('Crypto')}
@@ -51,7 +58,7 @@ const MarketUpdate = () => {
           Music
         </button>
       </div>
-      <CryptoList activeTab={activeTab} />
+      <CryptoList activeTab={activeTab} cryptoID={cryptoID}/>
     </div>
   );
 };
