@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
-import {ChartComponent} from"../Home/PageComponents/ChartComponent"
+import {PriceUpdateChart} from "../Home/PageComponents/AllCoinsUpdates/CoinChart"; 
 export const ContactPage = () => {
   return (
     <div>
-      <ChartComponent></ChartComponent>
+      <PriceUpdateChart/>
     </div>
   );
 };

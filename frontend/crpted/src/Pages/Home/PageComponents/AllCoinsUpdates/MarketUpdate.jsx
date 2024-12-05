@@ -5,8 +5,8 @@ import './MarketUpdate.css';
 const MarketUpdate = () => {
   const [activeTab, setActiveTab] = useState('Crypto');
   const [cryptoID,setCryptoID]=useState('');
-  function onSearch(cyptoName){
-    setCryptoID(cyptoName);
+  function onSearch(cryptoName){
+    setCryptoID(cryptoName);
   }
   return (
     <div className="m-10 bg-black p-5 rounded-lg text-white h-screen">

@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { PriceUpdateChart } from "./CoinChart";
 
 const CryptoItem = ({ index, crypto }) => {
   return (
@@ -8,12 +9,12 @@ const CryptoItem = ({ index, crypto }) => {
         <img src={crypto.image} alt={`${crypto.name} logo`} className="w-6 mr-2" />
         {crypto.name} <span className="uppercase ml-1">{crypto.symbol}</span>
       </span>
-      <span>₹{crypto.current_price.toLocaleString(2)}</span>
-      <span className={crypto.price_change_percentage_24h >= 0 ? 'text-green-500' : 'text-red-500'}>
+      <span>₹{crypto.current_price.toLocaleString()}</span>
+      <span className={crypto.price_change_percentage_24h >= 0 ? "text-green-500" : "text-red-500"}>
         {crypto.price_change_percentage_24h.toFixed(2)}%
       </span>
       <span>₹{crypto.market_cap.toLocaleString()}</span>
-      <span className="text-gray-400">{'N/A'}</span>
+      <PriceUpdateChart coinId={crypto.id} />
       <button className="px-3 py-1 border border-gray-500 bg-transparent text-white rounded-md hover:bg-gray-700">
         Trade
       </button>
