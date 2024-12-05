@@ -27,7 +27,7 @@ const CryptoList = ({ activeTab,cryptoID }) => {
         <span>Last Price</span>
         <span>Change%</span>
         <span>Market Cap</span>
-        <span>Last 7 Days</span>
+        <span>Last 24 Hours</span>
       </div>
       <div className="h-[35rem] overflow-y-scroll">
       {/* used Immediately Invoked Function Expression (IIFE) instead defining outside and calling*/}
