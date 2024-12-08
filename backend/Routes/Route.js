@@ -2,8 +2,6 @@ const Express = require("express");
 const Router = Express.Router();
 
 const User = require("../models/userDataModel"); // user model
-const bcrypt = require("bcrypt"); // for hashing passwords
-const jwt = require("jsonwebtoken"); // for generating tokens
 const UserSchemaValidator = require("../validations/UserValidator"); //zod validation
 const UserAuth = require("../Middleware/UserMiddleware"); // middleware for user auth
 const { User,connectDB, createUser, getAllUsers,deleteUser,deleteWalletAddress,addWalletAddress,getUserByUsername} = require("./config/database");

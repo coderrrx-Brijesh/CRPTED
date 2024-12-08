@@ -3,6 +3,8 @@ import CryptoItem from './CryptoItem';
 
 const CryptoList = ({ activeTab,cryptoID }) => {
   const [cryptoData, setCryptoData] = useState([]);
+  const [Top20Cryptos,setTop20]=useState([]);
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -12,6 +14,7 @@ const CryptoList = ({ activeTab,cryptoID }) => {
         );
         const data = await response.json();
         setCryptoData(data);
+        setTop20(data.slice(0,20))
       } catch (error) {
         console.error('Error fetching crypto data:', error);
       }
@@ -43,7 +46,7 @@ const CryptoList = ({ activeTab,cryptoID }) => {
         return null
        })()
        :
-        (cryptoData.map((crypto, index) => (
+        (Top20Cryptos.map((crypto, index) => (
           <CryptoItem key={crypto.id} index={index + 1} crypto={crypto} />
         )))}
       </div>

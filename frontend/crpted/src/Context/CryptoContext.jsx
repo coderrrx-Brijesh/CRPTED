@@ -2,9 +2,11 @@ import { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
 // Creating the context to store cryptocurrency data and settings.
+
 const CryptoContext = createContext();
 
 // Provider component that wraps the children and provides the context values.
+
 export const CryptoContextProvider = (props) => {
   const [AllCoin, SetAllcoin] = useState([]); 
   const [Currency, SetCurrency] = useState({ name: "usd", symbol: "$" }); 
