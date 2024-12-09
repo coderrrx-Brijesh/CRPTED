@@ -10,7 +10,7 @@ import "./HomePage.css";
 export const HomePage = () => {
     console.log("home");
     return (
-        <div className="bg-primary">
+        <div className="bg-primary ">
             <div className="h-screen w-full flex justify-between px-8 pt-0">
                 <div className="ml-8 flex flex-col gap-10 w-2/5 items-start justify-center">
                     <h1 className="text-7xl font-bold text-white leading-snug">

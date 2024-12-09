@@ -1,64 +1,104 @@
-import React from 'react';
+import React, { useState } from "react";
 import LogoImg from "../assets/Icons/Logo.png";
-import { Button } from '../components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '../components/ui/avatar';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../components/ui/dropdown-menu';
-import {WalletButton} from "./NavBarComponents/WalletButton"
+import { DropdownMenubar } from "./NavBarComponents/DropdownMenubar";
+import { WalletButton } from "./NavBarComponents/WalletButton";
+import LoginPopup from "./NavBarComponents/LoginPopup";
+import SignupPopup from "./NavBarComponents/SignupPopup"; // Add a similar SignupPopup component if you have one.
+import LoginContext from "../Context/LogedinContext";
+import { Button } from "../components/ui/button";
+import { WalletIcon } from "lucide-react";
 
 export const NavBar = () => {
-    return (
-        <div>
-            <nav className="flex items-center justify-between p-4 bg-black min-w-96 font-semibold text-2xl">
-                {/*  Logo and App Titlllee */}
-                <div className="flex items-center space-x-4 bg-white rounded-md p-2.5 ml-4 ">
-                    <div id="AppTitle" className="text-black text-3xl font-bold">
-                        CRPTED
-                    </div>
-                    <div id="Logo">
-                        <img src={LogoImg} alt="Logo" className="h-10 w-auto" />
-                    </div>
-                </div>
+  const { isLoggedIn } = useState(LoginContext);
+  const [showPopup, setShowPopup] = useState(null); // 'login', 'signup', or null
 
-                {/* Desktop React router links */}
-                <div className="flex space-x-6">
-                    <a href="/" className="text-gray-300 hover:text-white">Home</a>
-                    <a href="/about" className="text-gray-300 hover:text-white">About</a>
-                    <a href="/BuyCrypto" className="text-gray-300 hover:text-white">BuyCrypto</a>
-                    <a href="/SellCrypto" className="text-gray-300 hover:text-white">SellCrypto</a>
-                    <a href="/service" className="text-gray-300 hover:text-white">Services</a>
-                    <a href="/contact" className="text-gray-300 hover:text-white">Contact</a>
-                </div>
-                <div>
-                </div>
-                {/* wallet button */}
-                <div>
-                    <WalletButton onClick ={()=>{alert("hi")}}></WalletButton>
-                </div>
-                {/* User Avatar with Dropdown Menu */}
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="outlined">
-                            <Avatar className="w-8 h-8">
-                                <AvatarImage src="https://example.com/avatar.jpg" alt="User Avatar" />
-                                <AvatarFallback>A</AvatarFallback>
-                            </Avatar>
-                        </Button>
-                    </DropdownMenuTrigger>
+  const handlePopupToggle = (type) => {
+    setShowPopup((prev) => (prev === type ? null : type));
+  };
 
-                    <DropdownMenuContent align="end" className="w-48">
-                        <DropdownMenuItem asChild>
-                            <a href="/profile" className="text-gray-700">Profile</a>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                            <a href="/settings" className="text-gray-700">Settings</a>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                            <a href="/logout" className="text-gray-700">Logout</a>
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-                    
-            </nav>
+  return (
+    <div>
+      <nav className="flex items-center justify-between p-4 bg-black min-w-96 font-semibold text-2xl">
+        {/* Logo and App Title */}
+        <div className="flex items-center space-x-4 bg-white rounded-md p-2.5 ml-4 ">
+          <div id="AppTitle" className="text-black text-3xl font-bold">
+            CRPTED
+          </div>
+          <div id="Logo">
+            <img src={LogoImg} alt="Logo" className="h-10 w-auto" />
+          </div>
         </div>
-    );
+
+        {/* Desktop React router links */}
+        <div className="flex space-x-6">
+          <a href="/" className="text-gray-300 hover:text-white">
+            Home
+          </a>
+          <a href="/about" className="text-gray-300 hover:text-white">
+            About
+          </a>
+          <a href="/BuyCrypto" className="text-gray-300 hover:text-white">
+            BuyCrypto
+          </a>
+          <a href="/SellCrypto" className="text-gray-300 hover:text-white">
+            SellCrypto
+          </a>
+          <a href="/service" className="text-gray-300 hover:text-white">
+            Services
+          </a>
+          <a href="/contact" className="text-gray-300 hover:text-white">
+            Contact
+          </a>
+        </div>
+
+        {isLoggedIn ? (
+          <div className="flex space-x-8 ">
+            <WalletButton onClick={() => alert("hi")} />
+            <DropdownMenubar />
+          </div>
+        ) : (
+          <div className="flex space-x-8">
+            <Button
+              onClick={() => handlePopupToggle("login")}
+              className="flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700"
+            >
+              <WalletIcon className="w-5 h-5 text-white" />
+              <span>LOGIN</span>
+            </Button>
+            <Button
+              onClick={() => handlePopupToggle("signup")}
+              className="flex items-center space-x-2 bg-white hover:bg-white-700 text-indigo-700 text-bold"
+            >
+              <WalletIcon className="w-5 h-5 text-indigo-700" />
+              <span>SIGNUP</span>
+            </Button>
+          </div>
+        )}
+      </nav>
+
+      {/* Popup Components */}
+      {showPopup === "login" && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <LoginPopup />
+          <Button
+            onClick={() => setShowPopup(null)}
+            className="absolute top-10 right-10 bg-red-600 text-white px-4 py-2 rounded-lg"
+          >
+            Close
+          </Button>
+        </div>
+      )}
+      {showPopup === "signup" && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <SignupPopup />
+          <Button
+            onClick={() => setShowPopup(null)}
+            className="absolute top-10 right-10 bg-red-600 text-white px-4 py-2 rounded-lg"
+          >
+            X
+          </Button>
+        </div>
+      )}
+    </div>
+  );
 };
