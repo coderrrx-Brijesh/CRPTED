@@ -6,15 +6,14 @@ const CryptoContext = createContext();
 
 // Provider component that wraps the children and provides the context values.
 export const CryptoContextProvider = (props) => {
-  const [AllCoin, SetAllcoin] = useState([]); 
-  const [Currency, SetCurrency] = useState({ name: "usd", symbol: "$" }); 
-
+  const [allCryptoData, setAllCryptoData] = useState([]);
+  const [currency, setCurrency] = useState("inr");
   //  fetch cryptocurrency data from CoinGecko API.
   const fetchdata = async () => {
     const options = {
       method: "GET",
       url: "https://api.coingecko.com/api/v3/coins/markets",
-      params: { vs_currency: Currency.name }, 
+      params: { vs_currency: currency}, 
       headers: {
         accept: "application/json",
         "x-cg-demo-api-key": "CG-PAD5i6MjsqAgusMstpzG8Mpb",
@@ -24,7 +23,7 @@ export const CryptoContextProvider = (props) => {
     try {
       const res = await axios.request(options);
       console.log(res.data);  
-      SetAllcoin(res.data);  
+      setAllCryptoData(res.data);  
     } catch (err) {
       console.error("Error fetching data:", err);
     }
@@ -33,10 +32,10 @@ export const CryptoContextProvider = (props) => {
   // useEffect hook to refetch data whenever the currency changes.
   useEffect(() => {
     fetchdata();
-  }, [Currency]); 
+  }, []); 
 
   // Context value includes cryptocurrency data and functions to update currency.
-  const Crypto = { AllCoin, SetCurrency, Currency };
+  const Crypto = { allCryptoData,setAllCryptoData, setCurrency, currency };
 
   return (
     // Providing the context value to children components.

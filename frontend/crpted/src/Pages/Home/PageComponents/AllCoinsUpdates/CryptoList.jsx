@@ -1,23 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import CryptoItem from './CryptoItem';
-
+import  CryptoContext  from '../../../../Context/CryptoContext';
 const CryptoList = ({ activeTab,cryptoID }) => {
-  const [cryptoData, setCryptoData] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(
-          'https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr'
-        );
-        const data = await response.json();
-        setCryptoData(data);
-      } catch (error) {
-        console.error('Error fetching crypto data:', error);
-      }
-    };
-    fetchData();
-  }, [activeTab]);
+  const { allCryptoData } = useContext(CryptoContext);
 
   return (
     <div>
@@ -32,18 +17,18 @@ const CryptoList = ({ activeTab,cryptoID }) => {
       <div className="h-[35rem] overflow-y-scroll">
       {/* used Immediately Invoked Function Expression (IIFE) instead defining outside and calling*/}
       {cryptoID ? (()=>{
-         const filteredCoins = cryptoData.filter((crypto) => 
+         const filteredCoins = allCryptoData.filter((crypto) => 
           crypto.id.toLowerCase().startsWith(cryptoID.toLowerCase())
         );
          if (filteredCoins.length>0) {
-          return filteredCoins.map((crypto, index)=>( /*used implicit return using () instead of using {} after arrow function hence no need of extra return statement or manual return*/
+          return filteredCoins.slice(0,15).map((crypto, index)=>( /*used implicit return using () instead of using {} after arrow function hence no need of extra return statement or manual return*/
            <CryptoItem key={crypto.id} index={index + 1} crypto={crypto}/>
           ))
          }
         return null
        })()
        :
-        (cryptoData.map((crypto, index) => (
+        (allCryptoData.slice(0,15).map((crypto, index) => (
           <CryptoItem key={crypto.id} index={index + 1} crypto={crypto} />
         )))}
       </div>
