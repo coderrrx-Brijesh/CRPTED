@@ -21,14 +21,14 @@ const CryptoList = ({ activeTab,cryptoID }) => {
           crypto.id.toLowerCase().startsWith(cryptoID.toLowerCase())
         );
          if (filteredCoins.length>0) {
-          return filteredCoins.slice(0,15).map((crypto, index)=>( /*used implicit return using () instead of using {} after arrow function hence no need of extra return statement or manual return*/
+          return filteredCoins.slice(0,10).map((crypto, index)=>( /*used implicit return using () instead of using {} after arrow function hence no need of extra return statement or manual return*/
            <CryptoItem key={crypto.id} index={index + 1} crypto={crypto}/>
           ))
          }
         return null
        })()
        :
-        (allCryptoData.slice(0,15).map((crypto, index) => (
+        (allCryptoData.slice(0,10).map((crypto, index) => (
           <CryptoItem key={crypto.id} index={index + 1} crypto={crypto} />
         )))}
       </div>
