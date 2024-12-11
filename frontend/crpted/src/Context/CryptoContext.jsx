@@ -18,7 +18,7 @@ export const CryptoContextProvider = (props) => {
       params: { vs_currency: currency}, 
       headers: {
         accept: "application/json",
-        "x-cg-demo-api-key": "CG-PAD5i6MjsqAgusMstpzG8Mpb",
+        "x-cg-demo-api-key": "CG-PAD5i6MjsqAgusMstpzG8Mpb"
       },
     };
     
