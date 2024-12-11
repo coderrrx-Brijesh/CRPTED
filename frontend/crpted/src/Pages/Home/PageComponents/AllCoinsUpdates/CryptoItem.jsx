@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { AllCoinChart } from "./AllCoinChart";
 import {CoinChartPage} from "../CoinChartPage"; // Import the full CoinChart component
-
+import  CryptoContext  from "../../../../Context/CryptoContext";
 const CryptoItem = ({ index, crypto }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { getCurrencySymbol,currency } = useContext(CryptoContext);
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
@@ -19,7 +20,7 @@ const CryptoItem = ({ index, crypto }) => {
         />
         {crypto.name} <span className="uppercase ml-1">{crypto.symbol}</span>
       </span>
-      <span>₹{crypto.current_price.toLocaleString()}</span>
+      <span>{getCurrencySymbol(currency)}{crypto.current_price.toLocaleString()}</span>
       <span
         className={
           crypto.price_change_percentage_24h >= 0
@@ -29,7 +30,7 @@ const CryptoItem = ({ index, crypto }) => {
       >
         {crypto.price_change_percentage_24h.toFixed(2)}%
       </span>
-      <span>₹{crypto.market_cap.toLocaleString()}</span>
+      <span>{getCurrencySymbol(currency)}{crypto.market_cap.toLocaleString()}</span>
       {/* Clickable smaller chart */}
       <div onClick={openModal}>
         <AllCoinChart coinId={crypto.id} />

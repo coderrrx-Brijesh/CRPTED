@@ -10,25 +10,25 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-export const CoinChartPage = ({ coinId, currency = "inr" }) => {
+export const CoinChartPage = ({ coinId }) => {
   const [chartData, setChartData] = useState([]);
   const [difference, setDifference] = useState(0);
-  const { fetchChartData } = useContext(CryptoContext);
+  const { fetchChartData,getCurrencySymbol,currency } = useContext(CryptoContext);
   const [timeRange, setTimeRange] = useState(1);
 
   const handleTimeRangeChange = (event) => {
     setTimeRange(event.target.value);
   };
   useEffect(() => {
-    fetchChartData(setChartData, setDifference, coinId,timeRange);
-  }, [coinId, currency,timeRange]);
+    fetchChartData(setChartData, setDifference, coinId,timeRange,currency);
+  }, [coinId,timeRange]);
 
   return (
     <div style={{ width: "100%", padding: "20px", backgroundColor: "#121212", color: "#e0e0e0", borderRadius: "8px" }}>
       <div style={{ marginBottom: "20px", textAlign: "center" }}>
         <h2 style={{ margin: 0, color: "#ffffff" }}>Price Chart</h2>
         <p style={{ color: difference > 0 ? "#4caf50" : "#f44336", margin: "5px 0" }}>
-          {difference > 0 ? `+₹${difference.toFixed(2)}` : `-₹${Math.abs(difference.toFixed(2))}`}
+          {difference > 0 ? `+${getCurrencySymbol(currency)}${difference.toFixed(2)}` : `-${getCurrencySymbol(currency)}${Math.abs(difference.toFixed(2))}`}
         </p>
         <select
           value={timeRange}
@@ -66,7 +66,7 @@ export const CoinChartPage = ({ coinId, currency = "inr" }) => {
               axisLine={{ stroke: "#424242" }}
               tickLine={false}
               tick={{ fill: "#e0e0e0" }}
-              tickFormatter={(value) => `${currency === "inr" ? "₹" : "$"}${value.toFixed(2)}`}
+              tickFormatter={(value) => `${getCurrencySymbol(currency)}${value.toFixed(2)}`}
             />
             <Tooltip
               contentStyle={{
@@ -75,7 +75,7 @@ export const CoinChartPage = ({ coinId, currency = "inr" }) => {
                 borderRadius: "5px",
                 border: "1px solid #424242",
               }}
-              formatter={(value) => `${currency === "inr" ? "₹" : "$"}${value.toFixed(2)}`}
+              formatter={(value) => `${getCurrencySymbol(currency)}${value.toFixed(2)}`}
             />
             <Area
               type="monotone"
