@@ -1,7 +1,7 @@
 
 const LoginPopup = () => {
   return (
-    <div className="py-20">
+    <div>
       <div className="flex h-full items-center justify-center">
         <div className="rounded-lg border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-900 flex-col flex h-full items-center justify-center sm:px-4">
           <div className="flex h-full flex-col justify-center gap-4 p-6">

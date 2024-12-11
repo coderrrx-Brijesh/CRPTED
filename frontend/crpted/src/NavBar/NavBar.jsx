@@ -78,7 +78,7 @@ export const NavBar = () => {
 
       {/* Popup Components */}
       {showPopup === "login" && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed flex items-center justify-center inset-0 z-50 backdrop-blur">
           <LoginPopup />
           <Button
             onClick={() => setShowPopup(null)}
@@ -89,7 +89,7 @@ export const NavBar = () => {
         </div>
       )}
       {showPopup === "signup" && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur">
           <SignupPopup />
           <Button
             onClick={() => setShowPopup(null)}
