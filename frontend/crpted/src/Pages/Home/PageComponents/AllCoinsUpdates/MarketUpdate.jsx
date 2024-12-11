@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import CryptoList from './CryptoList';
 import { SearchBar } from './SearchBar';
-import './MarketUpdate.css';
 const MarketUpdate = () => {
   const [activeTab, setActiveTab] = useState('Crypto');
   const [cryptoID,setCryptoID]=useState('');
@@ -10,7 +9,7 @@ const MarketUpdate = () => {
   }
   return (
     <div className="m-10 bg-black p-5 rounded-lg text-white h-screen">
-      <div id="market-header">
+      <div className='flex items-top justify-between'>
         <h2 className="text-2xl font-bold mb-10">Market Update</h2>
         <SearchBar onSearch={onSearch}></SearchBar>
       </div>
@@ -58,7 +57,9 @@ const MarketUpdate = () => {
           Music
         </button>
       </div>
-      <CryptoList activeTab={activeTab} cryptoID={cryptoID}/>
+      <div className='h-4/5'>
+        <CryptoList activeTab={activeTab} cryptoID={cryptoID}/>
+      </div>
     </div>
   );
 };

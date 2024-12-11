@@ -4,7 +4,9 @@ import homePageBanner from "../../assets/hero-banner.png";
 import { TypedComponent } from "./PageComponents/Typed";
 import TopCryptoDetails from "./PageComponents/TopCryptoDetails";
 import MarketUpdate from "./PageComponents/AllCoinsUpdates/MarketUpdate";
+import WhatIsCrypto from "./PageComponents/WhatIsCrypto";
 import "./HomePage.css";
+import Footer from "./PageComponents/Footer";
 
 
 export const HomePage = () => {
@@ -28,7 +30,13 @@ export const HomePage = () => {
                 </div>
             </div>
             <TopCryptoDetails />
-            <MarketUpdate />
+            <div>
+                <MarketUpdate />
+            </div>
+            <WhatIsCrypto/>
+            <div>
+                <Footer/>
+            </div>
         </div>
     );
 };
