@@ -78,22 +78,22 @@ export const NavBar = () => {
 
       {/* Popup Components */}
       {showPopup === "login" && (
-        <div className="fixed flex items-center justify-center inset-0 z-50 backdrop-blur">
+        <div className="fixed flex items-center justify-center inset-0 z-50 backdrop-blur ">
           <LoginPopup />
           <Button
             onClick={() => setShowPopup(null)}
-            className="absolute top-10 right-10 bg-red-600 text-white px-4 py-2 rounded-lg"
+            className="absolute top-10 right-10 bg-red-500 text-white px-4 py-2 rounded-lg"
           >
-            Close
+            x
           </Button>
         </div>
       )}
       {showPopup === "signup" && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur">
+        <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur ">
           <SignupPopup />
           <Button
             onClick={() => setShowPopup(null)}
-            className="absolute top-10 right-10 bg-red-600 text-white px-4 py-2 rounded-lg"
+            className="absolute top-10 right-10 bg-red-500 text-white px-4 py-2 rounded-lg"
           >
             X
           </Button>
