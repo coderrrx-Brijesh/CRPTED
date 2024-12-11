@@ -6,7 +6,7 @@ import { AboutPage } from "./Pages/About/AboutPage";
 import { BuyCryptoPage } from "./Pages/BuyCryptoPage/BuyCryptoPage";
 import { SellCryptoPage } from "./Pages/SellCrypto/SellCryptoPage";
 import { ContactPage } from "./Pages/Contact/ContactPage";
-import { ServicePage } from "./Pages/Service/ServicesPage";
+import { ServicesPage } from "./Pages/Service/ServicesPage";
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
           <Route path="/About" element={<AboutPage/>}></Route>
           <Route path="/BuyCrypto" element={<BuyCryptoPage/>}></Route>
           <Route path="/SellCrypto" element={<SellCryptoPage/>}></Route>
-          <Route path="/Service" element={<ServicePage/>}></Route>
+          <Route path="/Service" element={<ServicesPage/>}></Route>
           <Route path="/Contact" element={<ContactPage/>}></Route>
         </Routes>
       </BrowserRouter>
