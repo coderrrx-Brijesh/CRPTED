@@ -15,7 +15,7 @@ const Cryptex = () => {
 
         {/* Content Section */}
         <div className="w-full lg:w-1/2">
-          <h1 className="text-4xl font-bold text-white mb-6">What Is Cryptex</h1>
+          <h1 className="text-4xl font-bold text-white mb-6">What Is CRPTED</h1>
           <p className="text-lg mb-6">
             Experience a variety of trading on Bitcost. You can use various types of
             coin transactions such as Spot Trade, Futures Trade, P2P, Staking, Mining,

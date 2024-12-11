@@ -20,7 +20,7 @@ export const CoinChartPage = ({ coinId }) => {
     setTimeRange(event.target.value);
   };
   useEffect(() => {
-    fetchChartData(setChartData, setDifference, coinId,timeRange,currency);
+    fetchChartData(setChartData, setDifference, coinId,timeRange);
   }, [coinId,timeRange]);
 
   return (
@@ -28,7 +28,7 @@ export const CoinChartPage = ({ coinId }) => {
       <div style={{ marginBottom: "20px", textAlign: "center" }}>
         <h2 style={{ margin: 0, color: "#ffffff" }}>Price Chart</h2>
         <p style={{ color: difference > 0 ? "#4caf50" : "#f44336", margin: "5px 0" }}>
-          {difference > 0 ? `+${getCurrencySymbol(currency)}${difference.toFixed(2)}` : `-${getCurrencySymbol(currency)}${Math.abs(difference.toFixed(2))}`}
+          {difference > 0 ? `+${getCurrencySymbol()}${difference.toFixed(2)}` : `-${getCurrencySymbol()}${Math.abs(difference.toFixed(2))}`}
         </p>
         <select
           value={timeRange}
@@ -66,7 +66,7 @@ export const CoinChartPage = ({ coinId }) => {
               axisLine={{ stroke: "#424242" }}
               tickLine={false}
               tick={{ fill: "#e0e0e0" }}
-              tickFormatter={(value) => `${getCurrencySymbol(currency)}${value.toFixed(2)}`}
+              tickFormatter={(value) => `${getCurrencySymbol()}${value.toFixed(2)}`}
             />
             <Tooltip
               contentStyle={{
@@ -75,7 +75,7 @@ export const CoinChartPage = ({ coinId }) => {
                 borderRadius: "5px",
                 border: "1px solid #424242",
               }}
-              formatter={(value) => `${getCurrencySymbol(currency)}${value.toFixed(2)}`}
+              formatter={(value) => `${getCurrencySymbol()}${value.toFixed(2)}`}
             />
             <Area
               type="monotone"

@@ -1,40 +1,55 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
-import { FaDollarSign, FaRupeeSign } from "react-icons/fa";
-// Creating the context to store cryptocurrency data and settings.
 
+// Creating the context to store cryptocurrency data and settings.
 const CryptoContext = createContext();
 
 // Provider component that wraps the children and provides the context values.
-
 export const CryptoContextProvider = (props) => {
   const [allCryptoData, setAllCryptoData] = useState([]);
+  const [crntCryptoData, setCrntCryptoData] = useState([]);
   const [currency, setCurrency] = useState("INR");
-  //  fetch cryptocurrency data from CoinGecko API.
+
+  // Function to fetch cryptocurrency data from CoinGecko API.
   const fetchdata = async () => {
-    const options = {
-      method: "GET",
-      url: "https://api.coingecko.com/api/v3/coins/markets",
-      params: { vs_currency: currency}, 
-      headers: {
-        accept: "application/json",
-        "x-cg-demo-api-key": "CG-PAD5i6MjsqAgusMstpzG8Mpb"
-      },
-    };
-    
     try {
-      const res = await axios.request(options);
-      console.log(res.data);
-      setAllCryptoData(res.data);
+      const INRoptions = {
+        method: "GET",
+        url: "https://api.coingecko.com/api/v3/coins/markets",
+        params: { vs_currency: "inr" },
+        headers: {
+          accept: "application/json",
+          "x-cg-demo-api-key": "CG-PAD5i6MjsqAgusMstpzG8Mpb",
+        },
+      };
+      const USDoptions = {
+        method: "GET",
+        url: "https://api.coingecko.com/api/v3/coins/markets",
+        params: { vs_currency: "usd" },
+        headers: {
+          accept: "application/json",
+          "x-cg-demo-api-key": "CG-PAD5i6MjsqAgusMstpzG8Mpb",
+        },
+      };
+
+      const [INRres, USDres] = await Promise.all([
+        axios.request(INRoptions),
+        axios.request(USDoptions),
+      ]);
+
+      const data = [INRres.data, USDres.data];
+      setCrntCryptoData(data);
+      setAllCryptoData(currency === "INR" ? data[0] : data[1]);
     } catch (err) {
       console.error("Error fetching data:", err);
     }
   };
-  // fetch chart data from CoinGecko API
-  const fetchChartData = async (setChartData, setDifference,coinId,timeRange=1,currency) => {
+
+  // Function to fetch chart data from CoinGecko API.
+  const fetchChartData = async (setChartData, setDifference, coinId, timeRange = 1) => {
     try {
       const now = new Date();
-      const timeAgo = now.getTime() - timeRange * 24 * 60 * 60 * 1000; // 24 hours ago in milliseconds
+      const timeAgo = now.getTime() - timeRange * 24 * 60 * 60 * 1000; // Time range in milliseconds
       const fromTimestamp = Math.floor(timeAgo / 1000); // Convert to Unix timestamp
 
       const response = await axios.get(
@@ -47,7 +62,7 @@ export const CryptoContextProvider = (props) => {
           },
           headers: {
             accept: "application/json",
-            "x-cg-demo-api-key": "CG-PAD5i6MjsqAgusMstpzG8Mpb", // Replace with a valid API key if needed
+            "x-cg-demo-api-key": "CG-PAD5i6MjsqAgusMstpzG8Mpb",
           },
         }
       );
@@ -66,12 +81,12 @@ export const CryptoContextProvider = (props) => {
       const diff = data[data.length - 1].price - data[0].price;
       setDifference(diff);
     } catch (error) {
-      console.log("Error fetching price data");
+      console.log("Error fetching chart data");
     }
   };
 
-  // functoin to get the currency symbol
-  const getCurrencySymbol = (currency) => {
+  // Function to get the currency symbol
+  const getCurrencySymbol = () => {
     switch (currency) {
       case "USD":
         return "$";
@@ -81,15 +96,28 @@ export const CryptoContextProvider = (props) => {
         return currency.toUpperCase();
     }
   };
-  
-  
-  // useEffect hook to refetch data whenever the currency changes.
+
+  // Fetch data on initial render
   useEffect(() => {
     fetchdata();
-  }, [currency]); 
+  }, []);
+
+  // Update `allCryptoData` when `currency` or `crntCryptoData` changes
+  useEffect(() => {
+    if (crntCryptoData.length > 0) {
+      setAllCryptoData(currency === "INR" ? crntCryptoData[0] : crntCryptoData[1]);
+    }
+  }, [currency, crntCryptoData]);
 
   // Context value includes cryptocurrency data and functions to update currency.
-  const Crypto = { allCryptoData,setAllCryptoData, setCurrency, currency,fetchChartData,getCurrencySymbol };
+  const Crypto = {
+    allCryptoData,
+    setAllCryptoData,
+    setCurrency,
+    currency,
+    fetchChartData,
+    getCurrencySymbol,
+  };
 
   return (
     // Providing the context value to children components.

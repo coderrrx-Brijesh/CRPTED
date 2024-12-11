@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
         {/* Contact Section */}
         <div className="contact space-y-4">
-          <h2 className="text-3xl font-bold mb-4 text-yellow-400">Cryptex</h2>
+          <h2 className="text-3xl font-bold mb-4 text-yellow-400">CRPTED</h2>
           <p className="text-lg">Let's talk! <span role="img" aria-label="thumbs up">👍</span></p>
           <p className="text-lg">+12 345 678 9101</p>
           <p className="text-lg">hello.cryptex@gmail.com</p>

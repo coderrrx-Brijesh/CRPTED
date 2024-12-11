@@ -6,7 +6,6 @@ const CurrencySwitchButton = () => {
   const { currency, setCurrency } = useContext(CryptoContext);
   function toggleCurrency() {
       setCurrency(currency === "INR" ? "USD" : "INR");
-      console.log(currency)
   }
   return (
     <button
