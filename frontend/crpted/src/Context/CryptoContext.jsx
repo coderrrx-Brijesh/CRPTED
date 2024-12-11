@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
-
+import { FaDollarSign, FaRupeeSign } from "react-icons/fa";
 // Creating the context to store cryptocurrency data and settings.
 
 const CryptoContext = createContext();
@@ -9,7 +9,7 @@ const CryptoContext = createContext();
 
 export const CryptoContextProvider = (props) => {
   const [allCryptoData, setAllCryptoData] = useState([]);
-  const [currency, setCurrency] = useState("inr");
+  const [currency, setCurrency] = useState("INR");
   //  fetch cryptocurrency data from CoinGecko API.
   const fetchdata = async () => {
     const options = {
@@ -31,7 +31,7 @@ export const CryptoContextProvider = (props) => {
     }
   };
   // fetch chart data from CoinGecko API
-  const fetchChartData = async (setChartData, setDifference,coinId,timeRange=1) => {
+  const fetchChartData = async (setChartData, setDifference,coinId,timeRange=1,currency) => {
     try {
       const now = new Date();
       const timeAgo = now.getTime() - timeRange * 24 * 60 * 60 * 1000; // 24 hours ago in milliseconds
@@ -70,13 +70,26 @@ export const CryptoContextProvider = (props) => {
     }
   };
 
+  // functoin to get the currency symbol
+  const getCurrencySymbol = (currency) => {
+    switch (currency) {
+      case "USD":
+        return "$";
+      case "INR":
+        return "₹";
+      default:
+        return currency.toUpperCase();
+    }
+  };
+  
+  
   // useEffect hook to refetch data whenever the currency changes.
   useEffect(() => {
     fetchdata();
-  }, []); 
+  }, [currency]); 
 
   // Context value includes cryptocurrency data and functions to update currency.
-  const Crypto = { allCryptoData,setAllCryptoData, setCurrency, currency,fetchChartData };
+  const Crypto = { allCryptoData,setAllCryptoData, setCurrency, currency,fetchChartData,getCurrencySymbol };
 
   return (
     // Providing the context value to children components.

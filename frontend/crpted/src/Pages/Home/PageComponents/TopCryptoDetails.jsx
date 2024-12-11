@@ -1,22 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
 import CryptoContext from '../../../Context/CryptoContext';
+import CurrencySwitchButton from './CurrencyChangeButton';
 
 const TopCryptoDetails = () => {
-  const { allCryptoData, currency, setCurrency } = useContext(CryptoContext);
+  const { allCryptoData, currency, setCurrency,getCurrencySymbol } = useContext(CryptoContext);
 
-  // Helper function to get currency symbol
-  const getCurrencySymbol = (currency) => {
-    switch (currency) {
-      case "usd":
-        return "$";
-      case "inr":
-        return "₹";
-      case "eur":
-        return "€";
-      default:
-        return currency.toUpperCase();
-    }
-  };
 
   return (
     <div className="bg-[#111] p-5 rounded-lg text-white">
@@ -58,6 +46,7 @@ const TopCryptoDetails = () => {
             </div>
           </div>
         ))}
+        <CurrencySwitchButton/>
       </div>
     </div>
   );
