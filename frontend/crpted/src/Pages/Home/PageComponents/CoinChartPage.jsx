@@ -14,14 +14,14 @@ export const CoinChartPage = ({ coinId, currency = "inr" }) => {
   const [chartData, setChartData] = useState([]);
   const [difference, setDifference] = useState(0);
   const { fetchChartData } = useContext(CryptoContext);
-  const [timeRange, setTimeRange] = useState("24h");
+  const [timeRange, setTimeRange] = useState(1);
 
   const handleTimeRangeChange = (event) => {
     setTimeRange(event.target.value);
   };
   useEffect(() => {
-    fetchChartData(setChartData, setDifference, coinId);
-  }, [coinId, currency]);
+    fetchChartData(setChartData, setDifference, coinId,timeRange);
+  }, [coinId, currency,timeRange]);
 
   return (
     <div style={{ width: "100%", padding: "20px", backgroundColor: "#121212", color: "#e0e0e0", borderRadius: "8px" }}>
@@ -42,9 +42,9 @@ export const CoinChartPage = ({ coinId, currency = "inr" }) => {
             marginTop: "10px",
           }}
         >
-          <option value="24h">Last 24 Hours</option>
-          <option value="7d">Last 7 Days</option>
-          <option value="30d">Last 30 Days</option>
+          <option value={1}>Last 24 Hours</option>
+          <option value={7}>Last 7 Days</option>
+          <option value={30}>Last 30 Days</option>
         </select>
       </div>
 

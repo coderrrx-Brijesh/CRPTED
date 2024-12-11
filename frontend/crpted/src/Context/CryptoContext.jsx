@@ -24,18 +24,18 @@ export const CryptoContextProvider = (props) => {
     
     try {
       const res = await axios.request(options);
-      console.log(res.data);  
-      setAllCryptoData(res.data);  
+      console.log(res.data);
+      setAllCryptoData(res.data);
     } catch (err) {
       console.error("Error fetching data:", err);
     }
   };
   // fetch chart data from CoinGecko API
-  const fetchChartData = async (setChartData, setDifference,coinId) => {
+  const fetchChartData = async (setChartData, setDifference,coinId,timeRange=1) => {
     try {
       const now = new Date();
-      const twentyFourHoursAgo = now.getTime() - 24 * 60 * 60 * 1000; // 24 hours ago in milliseconds
-      const fromTimestamp = Math.floor(twentyFourHoursAgo / 1000); // Convert to Unix timestamp
+      const timeAgo = now.getTime() - timeRange * 24 * 60 * 60 * 1000; // 24 hours ago in milliseconds
+      const fromTimestamp = Math.floor(timeAgo / 1000); // Convert to Unix timestamp
 
       const response = await axios.get(
         `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart/range`,
