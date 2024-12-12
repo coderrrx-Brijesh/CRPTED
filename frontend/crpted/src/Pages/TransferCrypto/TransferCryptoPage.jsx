@@ -11,7 +11,7 @@ import {
 } from "../../components/ui/select";
 import { ArrowLeftRight } from "lucide-react";
 import CryptoContext from "../../Context/CryptoContext";
-export const SellCryptoPage= ()=>{
+export const TransferCryptoPage= ()=>{
   const { allCryptoData } = useContext(CryptoContext);
   const [sellAmount, setSellAmount] = useState();
   const [receiveAmount, setReceiveAmount] = useState(0);

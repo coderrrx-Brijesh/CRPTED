@@ -17,7 +17,7 @@ export const NavBar = () => {
   };
 
   return (
-    <div className=" sticky top-0 z-50">
+    <div >
       <nav className="flex items-center justify-between p-4 bg-black min-w-96 font-semibold text-2xl">
         {/* Logo and App Title */}
         <div className="flex items-center space-x-4 bg-white rounded-md p-2.5 ml-4 ">
@@ -37,11 +37,11 @@ export const NavBar = () => {
           <a href="/about" className="text-gray-300 hover:text-white">
             About
           </a>
-          <a href="/BuyCrypto" className="text-gray-300 hover:text-white">
-            BuyCrypto
+          <a href="/TradeCrypto" className="text-gray-300 hover:text-white">
+          Trade
           </a>
-          <a href="/SellCrypto" className="text-gray-300 hover:text-white">
-            SellCrypto
+          <a href="/TransferCrypto" className="text-gray-300 hover:text-white">
+          Transfer
           </a>
           <a href="/service" className="text-gray-300 hover:text-white">
             Services
