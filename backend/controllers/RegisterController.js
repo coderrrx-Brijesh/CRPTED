@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const { SignUpSchemaValidator } = require("../validations/UserValidator");
 const saltRounds = 10;
 
-export const registerUser = async (req, res) => {
+const registerUser = async (req, res) => {
   try {
     // Validate the incoming request body
     const validData = SignUpSchemaValidator.parse(req.body);
