@@ -2,12 +2,13 @@ import React, { useState,useContext } from "react";
 import { AllCoinChart } from "./AllCoinChart";
 import {CoinChartPage} from "../CoinChartPage"; // Import the full CoinChart component
 import  CryptoContext  from "../../../../Context/CryptoContext";
+import { useNavigate } from "react-router-dom";
 const CryptoItem = ({ index, crypto }) => {
   const { getCurrencySymbol,currency } = useContext(CryptoContext);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  const navigate = useNavigate();
 
   return (
     <div className="flex justify-between items-center p-2.5 relative">
@@ -35,7 +36,8 @@ const CryptoItem = ({ index, crypto }) => {
       <div onClick={openModal}>
         <AllCoinChart coinId={crypto.id} />
       </div>
-      <button className="px-3 py-1 border border-gray-500 bg-transparent text-white rounded-md hover:bg-gray-700">
+      <button className="px-3 py-1 border border-gray-500 bg-transparent text-white rounded-md hover:bg-gray-700 "
+      onClick={()=>(navigate('/TradeCrypto'))}>
         Trade
       </button>
 
@@ -44,7 +46,7 @@ const CryptoItem = ({ index, crypto }) => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur">
           <div className="bg-gray-900 rounded-lg shadow-lg p-5 w-[90%] md:w-[70%]">
             <button
-              className="absolute top-4 right-4 text-white text-lg"
+              className="absolute top-5 right-10 text-white text-lg hover:bg-slate-800 p-2 w-12 rounded-md"
               onClick={closeModal}
             >
               ✖

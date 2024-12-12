@@ -10,35 +10,17 @@ import {
 } from "../../components/ui/select";
 import { ArrowLeftRight } from "lucide-react";
 import CryptoContext from "../../Context/CryptoContext";
+import usdIcon from "../../assets/Icons/usd.png";
+import inrIcon from "../../assets/Icons/rupee.png";
+import { handleSwap } from "./Tradecomponents/Handleswap";
 
-export const BuyCryptoPage = () => {
-  const { allCryptoData } = useContext(CryptoContext);
+export const TradeCryptoPage = () => {
+  const { allCryptoData, currency } = useContext(CryptoContext);
   const [payAmount, setPayAmount] = useState();
   const [receiveAmount, setReceiveAmount] = useState(0);
   const [FeeAmount, setFeeAmount] = useState(0);
   const [payCurrency, setPayCurrency] = useState("SOL");
   const [receiveCurrency, setReceiveCurrency] = useState("ETH");
-
-  const handleSwap = () => {
-    const payobj = allCryptoData.find(
-      (crypto) => crypto.symbol.toLowerCase() === payCurrency.toLowerCase()
-    );
-    const Reciveobj = allCryptoData.find(
-      (crypto) => crypto.symbol.toLowerCase() === receiveCurrency.toLowerCase()
-    );
-  
-    // console.log("Pay Object:", payobj);
-    // console.log("Receive Object:", Reciveobj);
-  
-    if (payobj && Reciveobj && payobj.current_price && Reciveobj.current_price) {
-      const calculatedAmount = (payAmount * payobj.current_price) / Reciveobj.current_price;
-      // console.log("Calculated Receive Amount:", calculatedAmount);
-      setReceiveAmount(calculatedAmount.toFixed(2));
-      setFeeAmount((calculatedAmount*0.005).toFixed(2))
-    } else {
-      console.error("Invalid data for conversion. Check allCryptoData, payCurrency, or receiveCurrency.");
-    }
-  };
 
   return (
     <div className="bg-[#0b0b0b] h-full flex flex-col items-center px-8 py-10 text-white">
@@ -46,7 +28,9 @@ export const BuyCryptoPage = () => {
       <div className="flex justify-between items-center">
         {/* Card 1 */}
         <Card className="w-full max-w-lg bg-gray-800 rounded-lg m-14">
-          <CardHeader className="text-lg font-medium text-white">You Pay</CardHeader>
+          <CardHeader className="text-lg font-medium text-white">
+            You Pay
+          </CardHeader>
           <CardContent className="flex flex-col gap-4">
             <div className="flex items-center gap-4">
               <Input
@@ -64,6 +48,26 @@ export const BuyCryptoPage = () => {
                   <span>{payCurrency}</span>
                 </SelectTrigger>
                 <SelectContent className="bg-gray-800 h-60">
+                  <SelectItem
+                    className="text-white flex items-center"
+                    value={"USD"}
+                    key={"USD"}
+                  >
+                    <div className="flex items-center">
+                      <div className="mr-2">USD</div>
+                      <img src={usdIcon} alt={`USD logo`} className="w-6" />
+                    </div>
+                  </SelectItem>
+                  <SelectItem
+                    className="text-white flex items-center"
+                    value={"INR"}
+                    key={"INR"}
+                  >
+                    <div className="flex items-center">
+                      <div className="mr-2">INR</div>
+                      <img src={inrIcon} alt={`INR logo`} className="w-6" />
+                    </div>
+                  </SelectItem>
                   {allCryptoData.slice(0, 30).map((crypto) => (
                     <SelectItem
                       className="text-white flex items-center"
@@ -83,7 +87,9 @@ export const BuyCryptoPage = () => {
                 </SelectContent>
               </Select>
             </div>
-            <p className="text-sm text-gray-400">{payAmount} {payCurrency}</p>
+            <p className="text-sm text-gray-400">
+              {payAmount} {payCurrency}
+            </p>
           </CardContent>
         </Card>
 
@@ -97,7 +103,9 @@ export const BuyCryptoPage = () => {
 
         {/* Card 2 */}
         <Card className="w-full max-w-lg bg-gray-800 rounded-lg m-14">
-          <CardHeader className="text-lg font-medium text-white">You Receive</CardHeader>
+          <CardHeader className="text-lg font-medium text-white">
+            You Receive
+          </CardHeader>
           <CardContent className="flex flex-col gap-4">
             <div className="flex items-center gap-4">
               <Input
@@ -115,6 +123,26 @@ export const BuyCryptoPage = () => {
                   <span>{receiveCurrency}</span>
                 </SelectTrigger>
                 <SelectContent className="bg-gray-800 h-60">
+                  <SelectItem
+                    className="text-white flex items-center"
+                    value={"USD"}
+                    key={"USD"}
+                  >
+                    <div className="flex items-center">
+                      <div className="mr-2">USD</div>
+                      <img src={usdIcon} alt={`USD logo`} className="w-6" />
+                    </div>
+                  </SelectItem>
+                  <SelectItem
+                    className="text-white flex items-center"
+                    value={"INR"}
+                    key={"INR"}
+                  >
+                    <div className="flex items-center">
+                      <div className="mr-2">INR</div>
+                      <img src={inrIcon} alt={`INR logo`} className="w-6" />
+                    </div>
+                  </SelectItem>
                   {allCryptoData.slice(0, 30).map((crypto) => (
                     <SelectItem
                       className="text-white flex items-center"
@@ -135,18 +163,23 @@ export const BuyCryptoPage = () => {
               </Select>
             </div>
             <div className="text-sm text-gray-400  flex justify-between">
-            <span >{receiveAmount} {receiveCurrency}</span>
-            <span className="text-xs" >~Exchange Fee {FeeAmount} {receiveCurrency}</span>
+              <span>
+                {receiveAmount} {receiveCurrency}
+              </span>
+              <span className="text-xs">
+                ~Exchange Fee {FeeAmount} {receiveCurrency}
+              </span>
             </div>
-           
           </CardContent>
         </Card>
       </div>
 
-      <Button className="mt-8 bg-blue-600 px-6 py-3 rounded-lg hover:bg-blue-700" onClick={handleSwap}>
+      <Button
+        className="mt-8 bg-blue-600 px-6 py-3 rounded-lg hover:bg-blue-700"
+        onClick={handleSwap}
+      >
         Exchange Now
       </Button>
-
     </div>
   );
 };

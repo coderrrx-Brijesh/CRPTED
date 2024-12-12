@@ -1,10 +1,24 @@
-const mongoose=require("mongoose");
+
 const User = require("../models/userModel");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
+const { SignUpSchemaValidator } = require("../validations/UserValidator");
 const saltRounds = 10;
 
-const registerUser =async (req,res)=>{
-    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+export const registerUser = async (req, res) => {
+  try {
+    // Validate the incoming request body
+    const validData = SignUpSchemaValidator.parse(req.body);
+
+    // Check if the username already exists
+    const existingUser = await User.findOne({ username: validData.username });
+    if (existingUser) {
+      return res.status(409).json({ message: "Username already taken" });
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(validData.password, saltRounds);
+
+    // Create a new user instance
     const newUser = new User({
         username: req.body.username,
         password: hashedPassword,
@@ -23,5 +37,10 @@ const registerUser =async (req,res)=>{
       }catch(error){
         console.log(error);
       }
+}
+catch (error) {
+    console.error("Error registering user:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 }
 module.exports={registerUser};

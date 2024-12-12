@@ -3,21 +3,21 @@ import LogoImg from "../assets/Icons/Logo.png";
 import { DropdownMenubar } from "./NavBarComponents/DropdownMenubar";
 import { WalletButton } from "./NavBarComponents/WalletButton";
 import LoginPopup from "./NavBarComponents/LoginPopup";
-import SignupPopup from "./NavBarComponents/SignupPopup"; // Add a similar SignupPopup component if you have one.
+import SignupPopup from "./NavBarComponents/SignupPopup"; 
 import LoginContext from "../Context/LogedinContext";
 import { Button } from "../components/ui/button";
 import { WalletIcon } from "lucide-react";
 
 export const NavBar = () => {
   const { isLoggedIn } = useState(LoginContext);
-  const [showPopup, setShowPopup] = useState(null); // 'login', 'signup', or null
+  const [showPopup, setShowPopup] = useState(null); 
 
   const handlePopupToggle = (type) => {
     setShowPopup((prev) => (prev === type ? null : type));
   };
 
   return (
-    <div>
+    <div >
       <nav className="flex items-center justify-between p-4 bg-black min-w-96 font-semibold text-2xl">
         {/* Logo and App Title */}
         <div className="flex items-center space-x-4 bg-white rounded-md p-2.5 ml-4 ">
@@ -37,11 +37,11 @@ export const NavBar = () => {
           <a href="/about" className="text-gray-300 hover:text-white">
             About
           </a>
-          <a href="/BuyCrypto" className="text-gray-300 hover:text-white">
-            BuyCrypto
+          <a href="/TradeCrypto" className="text-gray-300 hover:text-white">
+          Trade
           </a>
-          <a href="/SellCrypto" className="text-gray-300 hover:text-white">
-            SellCrypto
+          <a href="/TransferCrypto" className="text-gray-300 hover:text-white">
+          Transfer
           </a>
           <a href="/service" className="text-gray-300 hover:text-white">
             Services

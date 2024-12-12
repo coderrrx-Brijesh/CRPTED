@@ -67,7 +67,7 @@ const Footer = () => {
 
       {/* Footer Bottom */}
       <div className="footer-bottom mt-8 text-center">
-        <p className="text-lg">© 2022 Cryptex All Rights Reserved by <a href="https://codewithsadee.com" className="text-blue-400 underline hover:text-yellow-300">codewithsadee</a></p>
+        <p className="text-lg">© 2025 Cryptex All Rights Reserved by <a href="https://codewithsadee.com" className="text-blue-400 underline hover:text-yellow-300">codeFELLAS</a></p>
         <div className="social-icons flex justify-center space-x-6 mt-6">
           <a href="#" className="text-blue-500 hover:text-white text-2xl transition-colors duration-300"><i className="fab fa-facebook-f"></i></a>
           <a href="#" className="text-blue-400 hover:text-white text-2xl transition-colors duration-300"><i className="fab fa-twitter"></i></a>
