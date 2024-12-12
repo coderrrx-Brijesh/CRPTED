@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const { SignUpSchemaValidator } = require("../validations/UserValidator");
 const saltRounds = 10;
 
-export const registerUser = async (req, res) => {
+const registerUser = async (req, res) => {
   try {
     // Validate the incoming request body
     const validData = SignUpSchemaValidator.parse(req.body);
@@ -20,22 +20,27 @@ export const registerUser = async (req, res) => {
 
     // Create a new user instance
     const newUser = new User({
-      username: validData.username,
-      password: hashedPassword,
-      firstName: validData.firstName,
-      lastName: validData.lastName,
-    });
-
-    // Save the new user to the database
-    const savedUser = await newUser.save();
-    res.status(201).json({
-      message: "User registered successfully"
-    });
-  } catch (error) {
-    if (error.name === "ZodError") {
-      return res.status(400).json({ message: "Validation error", errors: error.errors });
-    }
-    console.error("Error during user registration:", error);
+        username: req.body.username,
+        password: hashedPassword,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName
+      });
+      try{
+        // if newUser already registered
+        const existingUser = await User.findOne({ username: req.body.username });
+        if (existingUser) {
+          return res.status(411).json({ message: "Email already taken" });
+        }
+        // if doesn't exit save new User
+        const savedUser = await newUser.save();
+        res.status(200).json(savedUser);
+      }catch(error){
+        console.log(error);
+      }
+}
+catch (error) {
+    console.error("Error registering user:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-};
+}
+module.exports={registerUser};
