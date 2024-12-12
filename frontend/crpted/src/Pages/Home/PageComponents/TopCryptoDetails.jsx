@@ -29,11 +29,11 @@ const TopCryptoDetails = () => {
               <img src={crypto.image} alt={`${crypto.name} logo`} className="w-6 h-6" />
             </div>
             <div className="text-2xl font-bold">
-              {getCurrencySymbol(currency)} {crypto.current_price.toFixed(2)}
+              {getCurrencySymbol()} {crypto.current_price.toFixed(2)}
             </div>
             <div className="flex justify-between items-center mt-3 text-sm">
               <span>
-                Market Cap: {getCurrencySymbol(currency)}
+                Market Cap: {getCurrencySymbol()}
                 {crypto.market_cap.toLocaleString()}
               </span>
               <span

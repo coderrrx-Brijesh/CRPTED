@@ -16,10 +16,10 @@ export const HomePage = () => {
             <div className="h-screen w-full flex justify-between px-8 pt-0">
                 <div className="ml-8 flex flex-col gap-10 w-2/5 items-start justify-center">
                     <h1 className="text-7xl font-bold text-white leading-snug">
-                        Buy & Sell Digital Assets In The Cryptex
+                        Buy & Sell Digital Assets In The CRPTED
                     </h1>
                     <p className="text-gray-400 text-lg">
-                        Coin Cryptex is the <TypedComponent className="features" /> <br /> way to buy & sell crypto asset exchange.
+                        Coin CRPTED is the <TypedComponent className="features" /> <br /> way to buy & sell crypto asset exchange.
                     </p>
                     <Button className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700">
                         Get Started Now

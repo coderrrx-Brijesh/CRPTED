@@ -20,7 +20,7 @@ const CryptoItem = ({ index, crypto }) => {
         />
         {crypto.name} <span className="uppercase ml-1">{crypto.symbol}</span>
       </span>
-      <span>{getCurrencySymbol(currency)}{crypto.current_price.toLocaleString()}</span>
+      <span>{getCurrencySymbol()}{crypto.current_price.toLocaleString()}</span>
       <span
         className={
           crypto.price_change_percentage_24h >= 0
@@ -30,7 +30,7 @@ const CryptoItem = ({ index, crypto }) => {
       >
         {crypto.price_change_percentage_24h.toFixed(2)}%
       </span>
-      <span>{getCurrencySymbol(currency)}{crypto.market_cap.toLocaleString()}</span>
+      <span>{getCurrencySymbol()}{crypto.market_cap.toLocaleString()}</span>
       {/* Clickable smaller chart */}
       <div onClick={openModal}>
         <AllCoinChart coinId={crypto.id} />
