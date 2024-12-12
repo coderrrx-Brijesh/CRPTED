@@ -1,29 +1,41 @@
-const mongoose=require("mongoose");
+
 const User = require("../models/userModel");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
+const { SignUpSchemaValidator } = require("../validations/UserValidator");
 const saltRounds = 10;
 
-const registerUser =async (req,res)=>{
-    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+export const registerUser = async (req, res) => {
+  try {
+    // Validate the incoming request body
+    const validData = SignUpSchemaValidator.parse(req.body);
+
+    // Check if the username already exists
+    const existingUser = await User.findOne({ username: validData.username });
+    if (existingUser) {
+      return res.status(409).json({ message: "Username already taken" });
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(validData.password, saltRounds);
+
+    // Create a new user instance
     const newUser = new User({
-        username: req.body.username,
-        password: hashedPassword,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        phoneNumber: req.body.phoneNumber,
-        dob: req.body.dob
-      });
-      try{
-        // if newUser already registered
-        const existingUser = await User.findOne({ username: req.body.username });
-        if (existingUser) {
-          return res.status(411).json({ message: "Email already taken" });
-        }
-        // if doesn't exit save new User
-        const savedUser = await newUser.save();
-        res.status(200).json(savedUser);
-      }catch(error){
-        console.log(error);
-      }
-}
+      username: validData.username,
+      password: hashedPassword,
+      firstName: validData.firstName,
+      lastName: validData.lastName,
+    });
+
+    // Save the new user to the database
+    const savedUser = await newUser.save();
+    res.status(201).json({
+      message: "User registered successfully"
+    });
+  } catch (error) {
+    if (error.name === "ZodError") {
+      return res.status(400).json({ message: "Validation error", errors: error.errors });
+    }
+    console.error("Error during user registration:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};

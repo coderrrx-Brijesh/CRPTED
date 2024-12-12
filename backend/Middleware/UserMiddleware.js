@@ -1,27 +1,22 @@
-const { getUserByUsername } = require("./config/database");
-const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const Jwt_secret = "Avann";
 
-async function UserAuth(req, res, next) {
-  try {
-    const plainPassword = req.body.password;
-    const user = await getUserByUsername(req.body.username);
+const authMiddleware = (req, res, next) => {
+    const auth = req.headers.authorization; 
 
-    if (!user) {
-      return res.status(404).json({ message: "User not found." });
+    if (!auth || !auth.startsWith("Bearer ")) {
+        return res.status(403).json({ message: "Access denied" });
     }
 
-    const hashedPassword = user.password; // Assuming the function returns an object with `password`
-    const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
-
-    if (isMatch) {
-      next();
-    } else {
-      res.status(401).json({ message: "Password is incorrect." });
+    const token = auth.split(' ')[1];
+    
+    try {
+        const decoded = jwt.verify(token, Jwt_secret);
+        req.userID = decoded.userID;
+        next();
+    } catch (err) {
+        return res.status(403).json({ message: "Invalid token" });
     }
-  } catch (error) {
-    console.error("Error verifying password:", error);
-    res.status(500).json({ message: "Internal Server Error." });
-  }
-}
+};
 
-module.exports = { UserAuth };
+module.exports = authMiddleware;
