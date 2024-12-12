@@ -1,43 +1,6 @@
 const mongoose = require("mongoose");
+const User = require("../models/userModel");
 require("dotenv").config();
-// Define your User schema
-const UserSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-    lowercase: true,
-    minLength: 3,
-    maxLength: 30,
-  },
-  password: {
-    type: String,
-    required: true,
-    minLength: 8,
-  },
-  firstName: {
-    type: String,
-    required: true,
-    trim: true,
-    maxLength: 50,
-  },
-  lastName: {
-    type: String,
-    required: true,
-    trim: true,
-    maxLength: 50,
-  },
-  walletAddresses: [
-    {
-      currency: { type: String, required: true }, // e.g., "Bitcoin", "Ethereum"
-      address: { type: String, required: true, unique: true }, // public address
-      createdAt: { type: Date, default: Date.now },
-    },
-  ],
-});
-
-const User = mongoose.model("User", UserSchema);
 
 // Connect to the database
 const connectDB = () => {
@@ -53,15 +16,6 @@ const connectDB = () => {
 };
 
 // CRUD Operations
-const createUser = async (userData) => {
-  try {
-    const user = new User(userData);
-    const savedUser = await user.save();
-    console.log("User created:", savedUser);
-  } catch (error) {
-    console.error("Error creating user:", error);
-  }
-};
 
 const getAllUsers = async () => {
   try {
@@ -131,4 +85,4 @@ const deleteWalletAddress = async (username, address) => {
   }
 };
 
-module.exports={ User , connectDB ,createUser,getAllUsers,deleteUser,deleteWalletAddress ,addWalletAddress,getUserByUsername};
+module.exports={ connectDB,getAllUsers,deleteUser,deleteWalletAddress ,addWalletAddress,getUserByUsername};

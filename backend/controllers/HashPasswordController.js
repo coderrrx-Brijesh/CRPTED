@@ -9,4 +9,4 @@ async function HashPassword(plainPassword) {
     }
   }
 
-  module.exports ={HashPassword};
+  module.exports =HashPassword;
