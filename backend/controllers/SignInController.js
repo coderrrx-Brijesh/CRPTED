@@ -1,3 +1,4 @@
+const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs"); // Ensure bcrypt is imported
 require("dotenv").config();
@@ -37,6 +38,7 @@ const signIn = async (req, res) => {
         username: user.username,
         firstName: user.firstName,
         lastName: user.lastName,
+        token: token
       },
     });
   } catch (error) {

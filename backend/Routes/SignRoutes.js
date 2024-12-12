@@ -8,10 +8,10 @@ const { getProfile } = require("../controllers/ProfileController");
 const { TokenAuth } = require("../Middleware/TokenAuth"); // middleware for user auth
 
 // POST route for sign-up
-router.post("/sign/signup", registerUser);
+router.post("/signup", registerUser);
 
 // route to POST for sign-in
-router.post("/sign/signin", signIn);  // Use POST instead of GET
+router.post("/signin", signIn);  // Use POST instead of GET
 
 // route to get user profile
 router.get("/profile", TokenAuth, getProfile);
