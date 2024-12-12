@@ -22,24 +22,6 @@ const UserSchema = new mongoose.Schema({
         trim: true,
         maxLength: 50,
     },
-    email:{
-        type: String,
-        required: true,
-        unique: true,
-        trim: true,
-        maxLength: 50,
-    },
-    phoneNumber:{
-        type: Number,
-        required: true,
-        unique: true,
-        trim: true,
-        maxLength: 10,
-    },
-    dob:{
-        type: Date,
-        required: true
-    },
     password: {
       type: String,
       required: true,

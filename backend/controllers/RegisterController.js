@@ -9,10 +9,7 @@ const registerUser =async (req,res)=>{
         username: req.body.username,
         password: hashedPassword,
         firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        phoneNumber: req.body.phoneNumber,
-        dob: req.body.dob
+        lastName: req.body.lastName
       });
       try{
         // if newUser already registered
@@ -27,3 +24,4 @@ const registerUser =async (req,res)=>{
         console.log(error);
       }
 }
+module.exports={registerUser};

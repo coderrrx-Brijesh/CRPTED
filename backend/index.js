@@ -1,13 +1,27 @@
-// cors for testing backend and front end together
-const cors = require('cors');
+require("dotenv").config();
+const PORT = process.env.PORT || 3000;
 // backend uses express as server
 const express = require('express');
 const app = express();
-
-app.use(cors());
 app.use(express.json());
 
+// cors for testing backend and front end together
+const cors = require('cors');
+app.use(cors());
 
-// all endpoint swill be handled by mainrouter
-const mainRouter = require('./Routes/Route');
-app.use("/app/V1", mainRouter);
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
+// Connect DB
+const { connectDB } = require("./config/database");
+connectDB();
+
+
+
+
+const signRoutes = require("./routes/SignRoutes");
+app.use("/api/v1", signRoutes);
+
+app.listen(PORT, (req, res) => {
+  console.log(`APPP IS STARTED AT ${PORT}`);
+});
