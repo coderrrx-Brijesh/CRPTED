@@ -20,17 +20,12 @@ const registerUser = async (req, res) => {
 
     // Create a new user instance
     const newUser = new User({
-        userName: req.body.userName,
+        userName: validData.userName,
         password: hashedPassword,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName
+        firstName: validData.firstName,
+        lastName: validData.lastName
       });
       try{
-        // if newUser already registered
-        const existingUser = await User.findOne({ userName: req.body.userName });
-        if (existingUser) {
-          return res.status(411).json({ message: "Email already taken" });
-        }
         // if doesn't exit save new User
         const savedUser = await newUser.save();
         res.status(200).json(savedUser);

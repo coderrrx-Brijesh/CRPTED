@@ -1,9 +1,9 @@
 const express= require("express");
 const router= express.Router();
 
-const {getData}=require("../config/database");
+const {allUserData}=require("../controllers/DataController");
 const {TokenAuth}=require("../Middleware/TokenAuth");
 
-router.get("/allusers",TokenAuth,getData);
+router.get("/allusersdata",TokenAuth,allUserData);
 
 module.exports=router;

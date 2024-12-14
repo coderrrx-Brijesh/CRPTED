@@ -16,26 +16,4 @@ const connectDB = () => {
 };
 
 
-const getUserByUsername = async (username) => {
-  try {
-    const user = await User.findOne({ username });
-    if (!user) {
-      console.log("User not found");
-      return;
-    }
-    console.log("User:", user);
-  } catch (error) {
-    console.error("Error fetching user:", error);
-  }
-};
-const getAllUsers = async () => {
-  try {
-    const users = await User.find();
-    console.log("Users:", users);
-  } catch (error) {
-    console.error("Error fetching users:", error);
-  }
-};
-
-
-module.exports={ connectDB,getUserByUsername,getAllUsers};
+module.exports={ connectDB};

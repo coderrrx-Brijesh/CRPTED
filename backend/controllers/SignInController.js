@@ -37,8 +37,7 @@ const signIn = async (req, res) => {
       user: {
         username: user.username,
         firstName: user.firstName,
-        lastName: user.lastName,
-        token: token
+        lastName: user.lastName
       },
     });
   } catch (error) {

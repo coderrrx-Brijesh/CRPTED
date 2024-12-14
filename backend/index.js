@@ -22,8 +22,8 @@ connectDB();
 const signRoutes = require("./Routes/SignRoutes");
 app.use("/api/v1", signRoutes);
 
-// const dataRoutes = require("./Routes/DataRoutes");
-// app.use("/api/v1", dataRoutes);
+const dataRoutes = require("./Routes/DataRoutes");
+app.use("/api/v1", dataRoutes);
 
 app.listen(PORT, (req, res) => {
   console.log(`APP IS STARTED AT ${PORT}`);
