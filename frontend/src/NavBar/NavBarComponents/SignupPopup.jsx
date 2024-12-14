@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useState ,useContext} from "react";
-import LoginContext from "../../Context/LogedinContext";
+
+//  if we want ot automatic sigin with signup
+// import LoginContext from "../../Context/LogedinContext";
 
 const SignInPopup = () => {
-  const { setIsLoggedIn } = useContext(LoginContext); // Properly consume the LoginContext
+//   const { setIsLoggedIn } = useContext(LoginContext); 
   const [formData, setFormData] = useState({
     userName: "",
     firstName: "",
@@ -28,7 +30,7 @@ const SignInPopup = () => {
         "http://localhost:3000/api/v1/signup",
         formData
     );
-    setIsLoggedIn(true); // Assuming login is successful and user is logged in
+    // setIsLoggedIn(true); // Assuming login is successful and user is logged in
       console.log("Response:", response.data);
       alert("Sign up successful!");
     } catch (error) {

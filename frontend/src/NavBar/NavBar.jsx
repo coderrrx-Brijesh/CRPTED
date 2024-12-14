@@ -9,8 +9,10 @@ import { Button } from "../components/ui/button";
 import { WalletIcon } from "lucide-react";
 
 export const NavBar = () => {
+
   const { isLoggedIn } = useContext(LoginContext); // Properly consume the LoginContext
   const [showPopup, setShowPopup] = useState(null);
+  const [user, setUser] = useState(null);
 
   const handlePopupToggle = (type) => {
     setShowPopup((prev) => (prev === type ? null : type));
@@ -60,8 +62,8 @@ export const NavBar = () => {
 
         {isLoggedIn ? (
           <div className="flex space-x-8">
-            <WalletButton onClick={() => alert("hi")} />
-            <DropdownMenubar />
+            <WalletButton onClick={() => alert("coming soon")} />
+            <DropdownMenubar user={user}/>
           </div>
         ) : (
           <div className="flex space-x-8">
@@ -86,7 +88,7 @@ export const NavBar = () => {
       {/* Popup Components */}
       {showPopup === "login" && (
         <div className="fixed flex items-center justify-center inset-0 z-50 backdrop-blur">
-          <LoginPopup />
+          <LoginPopup setuser={setUser} />
           <Button
             onClick={() => setShowPopup(null)}
             className="absolute top-10 right-10 bg-red-500 text-white px-4 py-2 rounded-lg"
