@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs"); // Ensure bcrypt is imported
 require("dotenv").config();
 const JWT_SECRET = process.env.JWT_SECRET;
-
 const signIn = async (req, res) => {
   try {
     // Fetch the user from the database using the userName
@@ -37,7 +36,7 @@ const signIn = async (req, res) => {
       user: {
         userName: user.userName,
         firstName: user.firstName,
-        lastName: user.lastName,
+        lastName: user.lastName
       },
     });
   } catch (error) {

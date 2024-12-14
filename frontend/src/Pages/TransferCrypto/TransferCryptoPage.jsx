@@ -1,5 +1,5 @@
-
-import React, { useState, useContext } from "react";
+import axios from "axios";
+import React, { useState, useContext, useEffect } from "react";
 import { Button } from "../../components/ui/button";
 import { Card, CardHeader, CardContent } from "../../components/ui/card";
 import { Input } from "../../components/ui/input";
@@ -12,7 +12,7 @@ import {
 import { ArrowLeftRight } from "lucide-react";
 import CryptoContext from "../../Context/CryptoContext";
 import { SearchBar } from "@/components/SearchBar";
-
+import {ListUsers} from "./PageComponents/ListUsers"
 export const TransferCryptoPage= ()=>{
   const { allCryptoData } = useContext(CryptoContext);
   const [sellAmount, setSellAmount] = useState();
@@ -21,11 +21,21 @@ export const TransferCryptoPage= ()=>{
   const [sellCurrency, setSellCurrency] = useState("BTC");
   const [receiveCurrency, setReceiveCurrency] = useState("USD");
   const [localCurrency, setLocalCurrency] = useState("USD");
-  const allUsersData = getAllUsers();
-  const onSearch = (username) => {
-    const filteredUser = allUsersData.filter((user)=> user.username.toLowerCase().startsWith(username.toLowerCase()));
-    console.log(filteredUser);
+  const [allUsers, setAllUsers] = useState([]);
+
+  const [userName, setUserName] = useState("");
+  async function getAllUsers(){
+    const response = await axios.get(`http://localhost:3000/api/v1/allusersdata`);
+    setAllUsers(response.data);
   }
+  useEffect(() => {
+    getAllUsers();
+  },[])
+  
+  const onsearch =(userName)=>{
+    setUserName(userName);
+  }
+
   const handleSwap = () => {
     const sellObj = allCryptoData.find(
       (crypto) => crypto.symbol.toLowerCase() === sellCurrency.toLowerCase()
@@ -45,7 +55,23 @@ export const TransferCryptoPage= ()=>{
   return (
     <div className="bg-[#0b0b0b] h-full flex flex-col items-center px-8 py-10 text-white">
       <h1 className="text-4xl font-bold mb-10">Sell Crypto</h1>
-      <SearchBar onSearch={onSearch} />
+      <SearchBar onSearch={onsearch}/>
+
+      {
+  userName && (
+    <div>
+      {
+        allUsers
+          .filter((user) => user.userName.toLowerCase().startsWith(userName.toLowerCase()))
+          .map((user, index) => (
+            <ListUsers key={index} user={user} />
+          ))
+      }
+    </div>
+  )
+}
+
+
       <div className="flex justify-between items-center">
         {/* Card 1 */}
         <Card className="w-full max-w-lg bg-gray-800 rounded-lg m-14">
