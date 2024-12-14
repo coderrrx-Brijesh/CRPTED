@@ -38,7 +38,7 @@ export const AllCoinChart = ({ coinId, currency = "inr" }) => {
             stroke={difference > 0 ? "green" : "red"}
             strokeWidth={2}
             dot={false}
-            // fill={difference > 0 ? "green" : "red"}
+            fill={difference > 0 ? "green" : "red"}
           />
         </LineChart>
       </ResponsiveContainer>

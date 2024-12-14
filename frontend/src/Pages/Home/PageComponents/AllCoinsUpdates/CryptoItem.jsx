@@ -52,9 +52,9 @@ const CryptoItem = ({ index, crypto }) => {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur">
-          <div className="bg-gray-900 rounded-lg shadow-lg p-5 w-[90%] md:w-[70%]">
+          <div className=" border border-gray-700 rounded-lg shadow-lg w-[90%] md:w-[70%]">
             <button
-              className="absolute top-25 right-60  text-white text-lg hover:bg-slate-800 p-2 w-12 rounded-md"
+              className="absolute top-28 right-60  text-white text-lg hover:bg-slate-800 p-2 w-12 rounded-md"
               onClick={closeModal}
             >
               ✖

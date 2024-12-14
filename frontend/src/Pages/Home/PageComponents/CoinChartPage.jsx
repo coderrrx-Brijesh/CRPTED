@@ -58,7 +58,7 @@ export const CoinChartPage = ({ coinId }) => {
             <XAxis
               dataKey="time"
               tick={{ fill: "#e0e0e0" }}
-              axisLine={{ stroke: "#424242" }}
+              axisLine={{ stroke: difference > 0 ? "#4caf50" : "#f44336" }}
               tickLine={false}
             />
             <YAxis
@@ -80,10 +80,10 @@ export const CoinChartPage = ({ coinId }) => {
             <Area
               type="monotone"
               dataKey="price"
-              stroke="#4caf50"
+              stroke= {difference > 0 ? "#4caf50" : "#f44336"}
               strokeWidth={2}
               dot={false}
-              fill={difference > 0 ? "#2e7d32" : "#c62828"}
+              fill={difference > 0 ? "#1e7d32" : "#c62828"}
             />
           </AreaChart>
         </ResponsiveContainer>

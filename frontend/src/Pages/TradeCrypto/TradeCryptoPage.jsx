@@ -101,7 +101,7 @@ export const TradeCryptoPage = () => {
     <div className="bg-opacity-90 bg-black h-screen flex flex-col items-center text-white">
       {/* Video Background */}
       <video
-        className="absolute top-0 left-0 w-full h-full object-cover z-[-1]"
+        className="absolute  w-full h-screen object-cover z-[-1]"
         autoPlay
         loop
         muted
@@ -109,7 +109,7 @@ export const TradeCryptoPage = () => {
         <source src={liveBg} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      <h1 className="text-4xl font-bold mb-10">Crypto Exchange</h1>
+      <h1 className="text-4xl font-bold my-10">Crypto Exchange</h1>
       <div className="flex justify-between items-center">
         {/* Card 1 */}
         <Card className="w-full max-w-lg bg-gray-800 rounded-lg m-14">

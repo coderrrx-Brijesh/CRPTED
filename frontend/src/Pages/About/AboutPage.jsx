@@ -22,10 +22,10 @@ export const AboutPage = () => {
         <div className="flex flex-col lg:flex-row items-center gap-12">
           <div className="flex-1">
             <h1 className="text-5xl font-extrabold text-white leading-snug">
-              About Cryptex
+              About Crpted
             </h1>
             <p className="text-lg text-gray-400 mt-6">
-              Cryptex is your one-stop platform for buying, selling, and managing digital assets securely. 
+              Crpted is your one-stop platform for buying, selling, and managing digital assets securely. 
               We empower users to take control of their financial future by offering tools, insights, 
               and educational resources for informed trading and investing.
             </p>
@@ -38,7 +38,7 @@ export const AboutPage = () => {
             <img
               src={aboutPageImage}
               className="rounded-lg shadow-lg w-full h-auto object-cover"
-              alt="About Cryptex"
+              alt="About Crpted"
             />
           </div>
         </div>
@@ -46,25 +46,25 @@ export const AboutPage = () => {
         <div className="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <Card>
             <CardHeader>
-              <CardTitle>Security</CardTitle>
+              <CardTitle className="bold text-3xl ">Security</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="bold text-gray-800 ">
               We use cutting-edge encryption and multi-factor authentication to keep your assets safe.
             </CardContent>
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Transparency</CardTitle>
+              <CardTitle className="bold text-3xl ">Transparency</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent  className="bold text-gray-800 ">
               Real-time market data and detailed transaction histories ensure clarity and trust.
             </CardContent>
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Innovation</CardTitle>
+              <CardTitle className="bold text-3xl ">Innovation</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent  className="bold text-gray-800 ">
               Stay ahead with our intuitive interface and advanced trading tools tailored for all users.
             </CardContent>
           </Card>

@@ -165,7 +165,7 @@ export const TransferCryptoPage = () => {
           <div className="flex justify-between items-center">
             <Button
               onClick={()=>(
-                selectedUser && transferAmount ? (toast.success(`${currencySymbol} ${transferAmount} ${transferCoin} Transferred Successfully ${selectedUser.firstName} ${selectedUser.lastName}`)):(toast.error(`Please Select a User to Transfer or Enter a Valid Amount`))
+                selectedUser && transferAmount ? (toast.success(`${currencySymbol} ${transferAmount.toFixed(2)} ${transferCoin} Transferred Successfully ${selectedUser.firstName} ${selectedUser.lastName}`)):(toast.error(`Please Select a User to Transfer or Enter a Valid Amount`))
               )}
               className="bg-[#266c31] hover:bg-[#50c15a] text-white px-4 py-2 rounded-lg transition-all"
             >
