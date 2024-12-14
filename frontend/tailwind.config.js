@@ -49,7 +49,13 @@ module.exports = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+			  purpleGradientStart: '#731da1',
+			  purpleGradientMiddle: '#551593',
+			  purpleGradientEnd: '#291d36',
+			  backgroundImage: {
+				'custom-gradient': 'linear-gradient(225deg, var(--tw-gradient-stops))',
+			  },
   		},
   		keyframes: {
   			'accordion-down': {

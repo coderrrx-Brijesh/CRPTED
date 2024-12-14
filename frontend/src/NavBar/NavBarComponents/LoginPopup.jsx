@@ -1,9 +1,11 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import LoginContext from "../../Context/LogedinContext";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
-const LoginPopup = ( {setuser}) => {
+const LoginPopup = ({ setuser }) => {
   const { setIsLoggedIn } = useContext(LoginContext);
+  const [alert, setAlert] = useState(null);
   const [formData, setFormData] = useState({
     userName: "",
     password: "",
@@ -17,10 +19,11 @@ const LoginPopup = ( {setuser}) => {
       [name]: value,
     }));
   };
-  
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
+    setAlert(null);
 
     try {
       const response = await axios.post(
@@ -37,6 +40,12 @@ const LoginPopup = ( {setuser}) => {
       );
     }
   };
+  const handleExternalLogin = (service) => {
+    setAlert({
+      title: "Hola Tester !!!",
+      description: ` ${service} login isn't Ready yet.`,
+    });
+  };
 
   return (
     <div className="py-20 w-96">
@@ -47,6 +56,12 @@ const LoginPopup = ( {setuser}) => {
               <h1 className="mb-4 text-2xl font-bold dark:text-white">Login</h1>
 
               {error && <div className="text-sm text-red-500">{error}</div>}
+              {alert && (
+                <Alert>
+                  <AlertTitle>{alert.title}</AlertTitle>
+                  <AlertDescription>{alert.description}</AlertDescription>
+                </Alert>
+              )}
 
               {["userName", "password"].map((field) => (
                 <div key={field}>
@@ -91,6 +106,7 @@ const LoginPopup = ( {setuser}) => {
                   </span>
                 </button>
                 <button
+                onClick={()=>handleExternalLogin("Google")}
                   type="button"
                   className="transition-colors focus:ring-2 p-0.5 disabled:cursor-not-allowed bg-white hover:bg-gray-100 text-gray-900 border border-gray-200 disabled:bg-gray-300 disabled:text-gray-700 rounded-lg"
                 >
@@ -129,6 +145,7 @@ const LoginPopup = ( {setuser}) => {
                   </span>
                 </button>
                 <button
+                  onClick={()=>handleExternalLogin("Facebook")}
                   type="button"
                   className="transition-colors focus:ring-2 p-0.5 disabled:cursor-not-allowed bg-white hover:bg-gray-100 text-gray-900 border border-gray-200 disabled:bg-gray-300 disabled:text-gray-700 rounded-lg"
                 >

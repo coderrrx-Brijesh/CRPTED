@@ -26,11 +26,11 @@ export const NavBar = () => {
   }, [isLoggedIn]);
 
   return (
-    <div>
-      <nav className="flex items-center justify-between p-4 bg-black min-w-96 font-semibold text-2xl">
+    <div className=" top-0 sticky z-40">
+      <nav className="flex items-center justify-between p-2.5 bg-black w-full font-semibold text-2xl">
         {/* Logo and App Title */}
-        <div className="flex items-center space-x-4 bg-white rounded-md p-2.5 ml-4">
-          <div id="AppTitle" className="text-black text-3xl font-bold">
+        <div className="flex items-center space-x-1 bg-white rounded-md p-1 ml-12">
+          <div id="AppTitle" className="text-black text-2xl font-bold">
             CRPTED
           </div>
           <div id="Logo">
@@ -39,23 +39,23 @@ export const NavBar = () => {
         </div>
 
         {/* Desktop React router links */}
-        <div className="flex space-x-6">
-          <a href="/" className="text-gray-300 hover:text-white">
+        <div className="flex text-xl">
+          <a href="/" className="text-gray-300 hover:text-white   hover:bg-slate-900 p-2 rounded-md ">
             Home
           </a>
-          <a href="/about" className="text-gray-300 hover:text-white">
+          <a href="/about" className="text-gray-300 hover:text-white  hover:bg-slate-900 p-2 rounded-md">
             About
           </a>
-          <a href="/TradeCrypto" className="text-gray-300 hover:text-white">
+          <a href="/TradeCrypto" className="text-gray-300 hover:text-white  hover:bg-slate-900 p-2 rounded-md">
             Trade
           </a>
-          <a href="/TransferCrypto" className="text-gray-300 hover:text-white">
+          <a href="/TransferCrypto" className="text-gray-300 hover:text-white  hover:bg-slate-900 p-2 rounded-md">
             Transfer
           </a>
-          <a href="/service" className="text-gray-300 hover:text-white">
+          <a href="/service" className="text-gray-300 hover:text-white  hover:bg-slate-900 p-2 rounded-md">
             Services
           </a>
-          <a href="/contact" className="text-gray-300 hover:text-white">
+          <a href="/contact" className="text-gray-300 hover:text-white  hover:bg-slate-900 p-2 rounded-md">
             Contact
           </a>
         </div>
@@ -69,16 +69,16 @@ export const NavBar = () => {
           <div className="flex space-x-8">
             <Button
               onClick={() => handlePopupToggle("login")}
-              className="flex items-center space-x-2 bg-indigo-600 hover:bg-indigo-700"
+              className="flex items-center space-x-2 bg-indigo-700  hover:bg-indigo-600"
             >
               <WalletIcon className="w-5 h-5 text-white" />
               <span>LOGIN</span>
             </Button>
             <Button
               onClick={() => handlePopupToggle("signup")}
-              className="flex items-center space-x-2 bg-white hover:bg-white-700 text-indigo-700 text-bold"
+              className="flex items-center space-x-2 bg-white text-indigo-800 text-bold hover:bg-indigo-200"
             >
-              <WalletIcon className="w-5 h-5 text-indigo-700" />
+              <WalletIcon className="w-5 h-5 " />
               <span>SIGNUP</span>
             </Button>
           </div>
@@ -108,6 +108,8 @@ export const NavBar = () => {
           </Button>
         </div>
       )}
+      <div className="border-slate-700 border-t"></div>
     </div>
+
   );
 };

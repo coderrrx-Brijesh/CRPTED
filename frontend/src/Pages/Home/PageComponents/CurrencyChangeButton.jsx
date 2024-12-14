@@ -7,22 +7,12 @@ const CurrencySwitchButton = () => {
   function toggleCurrency() {
       setCurrency(currency === "INR" ? "USD" : "INR");
   }
+  
   return (
     <button
-      onClick={toggleCurrency}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "10px",
-        padding: "10px 20px",
-        border: "none",
-        borderRadius: "5px",
-        background: "#333",
-        color: "#fff",
-        cursor: "pointer",
-        fontSize: "16px",
-      }}
-    >
+    onClick={toggleCurrency}
+    className="flex items-center gap-2.5 px-5 py-2.5 border-none rounded-md bg-black text-white cursor-pointer text-xl"
+  >
       {currency === "INR" ? <FaDollarSign /> : <FaRupeeSign />}
       Switch to {currency === "INR" ? "USD" : "INR"}
     </button>
