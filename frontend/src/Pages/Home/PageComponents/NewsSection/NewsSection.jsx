@@ -17,7 +17,7 @@ const NewsPage = () => {
             sortBy: 'publishedAt',
             language: 'en',
             apiKey: '733bec34464d4f05912d6f7246841045',
-            pageSize: 6,
+            pageSize: 9,
           },
         });
 

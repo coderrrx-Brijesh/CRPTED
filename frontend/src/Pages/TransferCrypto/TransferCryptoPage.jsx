@@ -8,6 +8,7 @@ import CryptoContext from "../../Context/CryptoContext";
 import { SearchBar } from "@/components/SearchBar";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {RandomAvatar} from "./PageComponents/RandomAvatar";
+import { Toaster, toast } from 'react-hot-toast'
 export const TransferCryptoPage = () => {
   const { allCryptoData, currency, setCurrency } = useContext(CryptoContext);
   const [allUsers, setAllUsers] = useState([]);
@@ -103,7 +104,10 @@ export const TransferCryptoPage = () => {
                 <div
                   key={index}
                   className="flex items-center p-3 hover:bg-gray-700 rounded-md cursor-pointer"
-                  onClick={() => selectUser(user)}
+                  onClick={() => {
+                    selectUser(user);
+                    setUserName("");
+                  }}
                 >
                   <Avatar className="mr-3 border-2 border-purple-600 p-1">
                   <AvatarImage
@@ -160,12 +164,19 @@ export const TransferCryptoPage = () => {
 
           <div className="flex justify-between items-center">
             <Button
+              onClick={()=>(
+                selectedUser && transferAmount ? (toast.success(`${currencySymbol} ${transferAmount} ${transferCoin} Transferred Successfully ${selectedUser.firstName} ${selectedUser.lastName}`)):(toast.error(`Please Select a User to Transfer or Enter a Valid Amount`))
+              )}
+              className="bg-[#266c31] hover:bg-[#50c15a] text-white px-4 py-2 rounded-lg transition-all"
+            >
+              Transfer Coins
+            </Button>
+            <Button
               onClick={toggleCurrency}
               className="bg-[#9333ea] hover:bg-[#7e22ce] text-white px-4 py-2 rounded-lg transition-all"
             >
               Switch to {currency === "USD" ? "INR" : "USD"}
             </Button>
-            <p className="text-sm text-gray-400">Current Currency: {currency}</p>
           </div>
         </CardContent>
       </Card>
