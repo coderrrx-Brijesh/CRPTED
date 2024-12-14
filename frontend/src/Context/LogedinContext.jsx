@@ -55,7 +55,7 @@ export const LogedinProvider = ({ children }) => {
   };
 
   return (
-    <LoginContext.Provider value={{ isLoggedIn, user, login, logout, token }}>
+    <LoginContext.Provider value={{ setIsLoggedIn,isLoggedIn, user, login, logout, token }}>
       {children}
     </LoginContext.Provider>
   );
