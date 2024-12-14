@@ -9,8 +9,8 @@ const registerUser = async (req, res) => {
     // Validate the incoming request body
     const validData = SignUpSchemaValidator.parse(req.body);
 
-    // Check if the username already exists
-    const existingUser = await User.findOne({ username: validData.username });
+    // Check if the userName already exists
+    const existingUser = await User.findOne({ userName: validData.userName });
     if (existingUser) {
       return res.status(409).json({ message: "Username already taken" });
     }
@@ -20,14 +20,14 @@ const registerUser = async (req, res) => {
 
     // Create a new user instance
     const newUser = new User({
-        username: req.body.username,
+        userName: req.body.userName,
         password: hashedPassword,
         firstName: req.body.firstName,
         lastName: req.body.lastName
       });
       try{
         // if newUser already registered
-        const existingUser = await User.findOne({ username: req.body.username });
+        const existingUser = await User.findOne({ userName: req.body.userName });
         if (existingUser) {
           return res.status(411).json({ message: "Email already taken" });
         }

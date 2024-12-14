@@ -10,7 +10,7 @@ const { z } = require('zod');
 // Zod validation schema for the User
 
 const SignUpSchemaValidator = z.object({
-  username: z.string()
+  userName: z.string()
     .min(3, "Username must be at least 3 characters")
     .max(30, "Username cannot exceed 30 characters")
     .trim()
@@ -28,7 +28,7 @@ const SignUpSchemaValidator = z.object({
   });
   // walletAddresses: z.array(walletAddressSchema).refine(walletAddresses => walletAddresses.length > 0, "At least one wallet address is required"),
 const SignInSchemaValidator = z.object({
-  username: z.string()
+  userName: z.string()
     .min(3, "Username must be at least 3 characters")
     .max(30, "Username cannot exceed 30 characters")
     .trim()
