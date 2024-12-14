@@ -1,4 +1,6 @@
-
+require("dotenv").config();
+const PORT = process.env.PORT || 3000;
+import axios from "axios";
 import React, { useState, useContext } from "react";
 import { Button } from "../../components/ui/button";
 import { Card, CardHeader, CardContent } from "../../components/ui/card";
@@ -21,11 +23,19 @@ export const TransferCryptoPage= ()=>{
   const [sellCurrency, setSellCurrency] = useState("BTC");
   const [receiveCurrency, setReceiveCurrency] = useState("USD");
   const [localCurrency, setLocalCurrency] = useState("USD");
-  const allUsersData = getAllUsers();
-  const onSearch = (username) => {
-    const filteredUser = allUsersData.filter((user)=> user.username.toLowerCase().startsWith(username.toLowerCase()));
-    console.log(filteredUser);
+
+  const [allUsers, setAllUsers] = useState([]);
+
+  async function getAllUsers(){
+    const response = await axios.get(`http://localhost:${PORT}/api/user/getallusers`);
+    setAllUsers(response.data);
   }
+
+  const onsearch =(userName)=>{
+    getAllUsers();
+
+  }
+
   const handleSwap = () => {
     const sellObj = allCryptoData.find(
       (crypto) => crypto.symbol.toLowerCase() === sellCurrency.toLowerCase()
@@ -45,7 +55,7 @@ export const TransferCryptoPage= ()=>{
   return (
     <div className="bg-[#0b0b0b] h-full flex flex-col items-center px-8 py-10 text-white">
       <h1 className="text-4xl font-bold mb-10">Sell Crypto</h1>
-      <SearchBar onSearch={onSearch} />
+      <SearchBar />
       <div className="flex justify-between items-center">
         {/* Card 1 */}
         <Card className="w-full max-w-lg bg-gray-800 rounded-lg m-14">
