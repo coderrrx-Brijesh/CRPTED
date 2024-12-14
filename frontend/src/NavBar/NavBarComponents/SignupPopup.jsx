@@ -1,11 +1,13 @@
 import axios from "axios";
-import { useState ,useContext} from "react";
+import { useState, useContext } from "react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 //  if we want ot automatic sigin with signup
 // import LoginContext from "../../Context/LogedinContext";
 
 const SignInPopup = () => {
-//   const { setIsLoggedIn } = useContext(LoginContext); 
+  //   const { setIsLoggedIn } = useContext(LoginContext);
+  const [alert, setAlert] = useState(null);
   const [formData, setFormData] = useState({
     userName: "",
     firstName: "",
@@ -24,24 +26,30 @@ const SignInPopup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setAlert(null);
     setErrors({});
     try {
       const response = await axios.post(
         "http://localhost:3000/api/v1/signup",
         formData
-    );
-    // setIsLoggedIn(true); // Assuming login is successful and user is logged in
+      );
+      // setIsLoggedIn(true); // Assuming login is successful and user is logged in
       console.log("Response:", response.data);
       alert("Sign up successful!");
     } catch (error) {
       if (error.response && error.response.data.errors) {
         setErrors(error.response.data.errors); // Assuming server sends errors in this format
-
       } else {
         console.error("Error:", error);
         alert("Sign up failed. Please try again.");
       }
     }
+  };
+  const handleExternalLogin = (service) => {
+    setAlert({
+      title: "Hola Tester !!!",
+      description: ` ${service} login isn't Ready yet.`,
+    });
   };
 
   return (
@@ -50,61 +58,77 @@ const SignInPopup = () => {
         <div className="rounded-lg border border-gray-200 bg-white w-full shadow-md dark:border-gray-700 dark:bg-gray-900 flex-col flex h-full items-center justify-center sm:px-4">
           <div className="flex h-full flex-col justify-center gap-4 p-6 w-full">
             <form className="flex flex-col gap-4 pb-4" onSubmit={handleSubmit}>
-              <h1 className="mb-4 text-2xl font-bold dark:text-white">Sign Up</h1>
-
-              {["userName", "firstName", "lastName", "password"].map((field) => (
-                <div key={field}>
-                  <div className="mb-2">
-                    <label
-                      className="text-sm font-medium text-gray-900 dark:text-gray-300"
-                      htmlFor={field}
-                    >
-                      {field === "userName"
-                        ? "Username"
-                        : field === "firstName"
-                        ? "First Name"
-                        : field === "lastName"
-                        ? "Last Name"
-                        : "Password"}:
-                    </label>
-                  </div>
-                  <div className="flex w-full rounded-lg pt-1">
-                    <div className="relative w-full">
-                      <input
-                        className="block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 p-2.5 text-sm rounded-lg"
-                        id={field}
-                        type={field === "password" ? "password" : "text"}
-                        name={field}
-                        placeholder={
-                          field === "userName"
-                            ? "Enter username"
-                            : field === "firstName"
-                            ? "First Name"
-                            : field === "lastName"
-                            ? "Last Name"
-                            : "Password"
-                        }
-                        required
-                        minLength={
-                          field === "userName" ? 3 : field === "password" ? 8 : undefined
-                        }
-                        maxLength={
-                          field === "userName"
-                            ? 30
-                            : field === "firstName" || field === "lastName"
-                            ? 50
-                            : undefined
-                        }
-                        value={formData[field]}
-                        onChange={handleChange}
-                      />
-                      {errors[field] && (
-                        <p className="text-sm text-red-600 mt-1">{errors[field]}</p>
-                      )}
+              <h1 className="mb-4 text-2xl font-bold dark:text-white">
+                Sign Up
+              </h1>
+              {alert && (
+                <Alert>
+                  <AlertTitle>{alert.title}</AlertTitle>
+                  <AlertDescription>{alert.description}</AlertDescription>
+                </Alert>
+              )}
+              {["userName", "firstName", "lastName", "password"].map(
+                (field) => (
+                  <div key={field}>
+                    <div className="mb-2">
+                      <label
+                        className="text-sm font-medium text-gray-900 dark:text-gray-300"
+                        htmlFor={field}
+                      >
+                        {field === "userName"
+                          ? "Username"
+                          : field === "firstName"
+                          ? "First Name"
+                          : field === "lastName"
+                          ? "Last Name"
+                          : "Password"}
+                        :
+                      </label>
+                    </div>
+                    <div className="flex w-full rounded-lg pt-1">
+                      <div className="relative w-full">
+                        <input
+                          className="block w-full border disabled:cursor-not-allowed disabled:opacity-50 bg-gray-50 border-gray-300 text-gray-900 focus:border-cyan-500 focus:ring-cyan-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-cyan-500 dark:focus:ring-cyan-500 p-2.5 text-sm rounded-lg"
+                          id={field}
+                          type={field === "password" ? "password" : "text"}
+                          name={field}
+                          placeholder={
+                            field === "userName"
+                              ? "Enter username"
+                              : field === "firstName"
+                              ? "First Name"
+                              : field === "lastName"
+                              ? "Last Name"
+                              : "Password"
+                          }
+                          required
+                          minLength={
+                            field === "userName"
+                              ? 3
+                              : field === "password"
+                              ? 8
+                              : undefined
+                          }
+                          maxLength={
+                            field === "userName"
+                              ? 30
+                              : field === "firstName" || field === "lastName"
+                              ? 50
+                              : undefined
+                          }
+                          value={formData[field]}
+                          onChange={handleChange}
+                        />
+                        {errors[field] && (
+                          <p className="text-sm text-red-600 mt-1">
+                            {errors[field]}
+                          </p>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                )
+              )}
 
               <div className="flex flex-col gap-2">
                 <button
@@ -116,6 +140,7 @@ const SignInPopup = () => {
                   </span>
                 </button>
                 <button
+                onClick={()=>handleExternalLogin("Google")}
                   type="button"
                   className="transition-colors focus:ring-2 p-0.5 disabled:cursor-not-allowed bg-white hover:bg-gray-100 text-gray-900 border border-gray-200 disabled:bg-gray-300 disabled:text-gray-700 rounded-lg"
                 >
