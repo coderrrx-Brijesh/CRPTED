@@ -6,13 +6,13 @@ require("dotenv").config();
 const connectDB = () => {
   const db_url = process.env.DATABASE_URL;
   mongoose
-    .connect(db_url)
-    .then(() => {
-      console.log("Database connected");
-    })
-    .catch((err) => {
-      console.error("Database connection failed", err);
-    });
+  .connect(db_url)
+  .then(() => {
+    console.log("Database connected");
+  })
+  .catch((err) => {
+    console.error("Database connection failed", err);
+  });
 };
 
 
@@ -28,6 +28,14 @@ const getUserByUsername = async (username) => {
     console.error("Error fetching user:", error);
   }
 };
+const getAllUsers = async () => {
+  try {
+    const users = await User.find();
+    console.log("Users:", users);
+  } catch (error) {
+    console.error("Error fetching users:", error);
+  }
+};
 
 
-module.exports={ connectDB,getUserByUsername};
+module.exports={ connectDB,getUserByUsername,getAllUsers};
