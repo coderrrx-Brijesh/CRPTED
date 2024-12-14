@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import LoginContext from "../../Context/LogedinContext";
 
-const LoginPopup = () => {
+const LoginPopup = ( {setuser}) => {
   const { setIsLoggedIn } = useContext(LoginContext);
   const [formData, setFormData] = useState({
     userName: "",
@@ -17,7 +17,7 @@ const LoginPopup = () => {
       [name]: value,
     }));
   };
-
+  
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
@@ -27,7 +27,8 @@ const LoginPopup = () => {
         "http://localhost:3000/api/v1/signin",
         formData
       );
-      console.log("Login successful:", response.data);
+      console.log("Login successful:", response.data.user);
+      setuser(response.data.user);
       setIsLoggedIn(true);
     } catch (err) {
       console.error("Login failed:", err);
