@@ -6,8 +6,8 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 const signIn = async (req, res) => {
   try {
-    // Fetch the user from the database using the username
-    const user = await User.findOne({ username: req.body.username });
+    // Fetch the user from the database using the userName
+    const user = await User.findOne({ userName: req.body.userName });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -20,7 +20,7 @@ const signIn = async (req, res) => {
 
     // On successful authentication, create a JWT token
     const payload = {
-      username: user.username,
+      userName: user.userName,
     };
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1d" });
 
@@ -35,10 +35,9 @@ const signIn = async (req, res) => {
     res.status(200).json({
       message: "Sign-in successful",
       user: {
-        username: user.username,
+        userName: user.userName,
         firstName: user.firstName,
         lastName: user.lastName,
-        token: token
       },
     });
   } catch (error) {
