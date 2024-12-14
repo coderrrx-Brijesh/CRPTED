@@ -40,9 +40,13 @@ export const ContactPage = () => {
         </div>
 
         <div className="mt-16">
-          <h2 className="text-4xl font-bold mb-6">About Me</h2>
+          <h2 className="text-4xl font-bold mb-6">About Us</h2>
           <p className="text-gray-400 leading-relaxed">
-            My name is Avan Sahu, a second-year student at ABV IIITM Gwalior. I am passionate about building projects that solve real-world problems, particularly in areas like stock market analysis and blockchain technology. I have experience with C++, React, and modern UI frameworks like Tailwind CSS and ShadCN UI. I am currently working on a bot to analyze stock trends and a crypto website to enhance user accessibility in the digital asset space. Feel free to reach out to me for collaborations or queries related to my work.
+          We are a dedicated team of second-year students at ABV IIITM Gwalior, combining our unique skills and passions to create innovative solutions for the digital world. Brijesh Singh, with a strong foundation in C++, web development, and problem-solving, brings a keen eye for efficiency and optimization in every project. Alongside him, Avan Sahu’s expertise in C++, React, and modern UI frameworks like Tailwind CSS and ShadCN UI helps us craft intuitive, user-friendly experiences.
+
+Together, we are working on a range of exciting projects, including a live crypto tracker and a bot designed to analyze stock trends. Avan focuses on enhancing user accessibility in the digital asset space, while Brijesh specializes in building optimized, scalable systems that tackle real-world problems.
+
+Our goal is to create seamless and efficient digital tools that make technology more accessible and impactful for everyone. We’re always open to collaborations and queries, so feel free to reach out to us!
           </p>
         </div>
       </div>
