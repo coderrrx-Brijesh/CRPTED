@@ -13,7 +13,7 @@ export const TransferCryptoPage = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [userName, setUserName] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
-  const [transferAmount, setTransferAmount] = useState("");
+  const [transferAmount, setTransferAmount] = useState(0);
   const [transferCoin, setTransferCoin] = useState("Bitcoin");
   const [cryptoCount, setCryptoCount] = useState();
   const [loading, setLoading] = useState(false);
@@ -155,7 +155,7 @@ export const TransferCryptoPage = () => {
 
           <div className="text-sm text-gray-400 mb-6">
             Amount to Transfer: {currencySymbol}
-            {transferAmount}
+            {transferAmount.toFixed(2)}
           </div>
 
           <div className="flex justify-between items-center">

@@ -9,13 +9,14 @@ const CryptoList = ({ activeTab, cryptoID }) => {
   return (
     <div className="w-full">
       {/* Header */}
-      <div className="flex justify-between items-center p-2 border-b border-gray-700 text-gray-400 font-bold">
-        <span>#</span>
-        <span>Name</span>
-        <span>Last Price</span>
-        <span>Change%</span>
-        <span>Market Cap</span>
-        <span>Last 24 Hours</span>
+      <div className="flex justify-between items-center p-3 border-b border-gray-700 text-gray-400 font-bold w-full ">
+        <span className="w-1/12">#</span>
+        <span className="w-1/12">Name</span>
+        <span className="w-1/12">Last Price</span>
+        <span className="w-2/12">Change%</span>
+        <span className="w-2/12">Market Cap</span>
+        <span className="w-3/12">Last 24 Hours</span>
+    
       </div>
 
       {/* Scroll Area for the list */}

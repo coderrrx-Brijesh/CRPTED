@@ -3,7 +3,7 @@ import { FaSearch } from 'react-icons/fa';
 
 export const SearchBar = ({ onSearch, placeholder }) => {
   return (
-    <div className="flex items-center bg-gray-800 py-2 px-4 rounded-full w-11/12  h-12 transition-colors duration-300 hover:bg-gray-700">
+    <div className="flex items-center bg-gray-800 py-2 px-4 rounded-full w-max  h-12 transition-colors duration-300 hover:bg-gray-700">
       <FaSearch className="text-gray-400 text-lg cursor-pointer transition-colors duration-300 hover:text-white" />
       <input
         type="text"

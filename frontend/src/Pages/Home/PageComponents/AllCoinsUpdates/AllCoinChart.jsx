@@ -1,8 +1,9 @@
 import React, { useEffect, useState,useContext } from "react";
-import axios from "axios";
 import  CryptoContext  from "../../../../Context/CryptoContext";
 import {
   AreaChart,
+  LineChart,
+  Line,
   Area,
   XAxis,
   YAxis,
@@ -20,26 +21,26 @@ export const AllCoinChart = ({ coinId, currency = "inr" }) => {
   }, [coinId, currency]);
 
   return (
-    <div style={{ width: "200px", height: "100px" }}>
+    <div  className="w-1/12 h-1/5" style={{ width: "200px", height: "100px" }}>
       <ResponsiveContainer>
-        <AreaChart margin={{ top: 10, right: 10, left: 0, bottom: 0 }} data={chartData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="time" tick={false} axisLine stroke="#8884d8" />
-          <YAxis domain={['dataMin', 'dataMax']} tick={false} axisLine stroke="#8884d8" />
+        <LineChart margin={{ top: 10, right: 10, left: 0, bottom: 0 }} data={chartData}>
+          <CartesianGrid  />
+          <XAxis dataKey="time" tick={false} axisLine stroke={difference > 0 ? "green" : "red"} />
+          <YAxis domain={['dataMin', 'dataMax']} tick={false} axisLine stroke={difference > 0 ? "green" : "red"} />
           <Tooltip
             contentStyle={{ backgroundColor: "black", width: "150px" }}
             position={{ x: 50, y: -70 }}
             formatter={(value) => value.toFixed(2)}
           />
-          <Area
+          <Line
             type="monotone"
             dataKey="price"
-            stroke="#8884d8"
+            stroke={difference > 0 ? "green" : "red"}
             strokeWidth={2}
             dot={false}
-            fill={difference > 0 ? "green" : "red"}
+            // fill={difference > 0 ? "green" : "red"}
           />
-        </AreaChart>
+        </LineChart>
       </ResponsiveContainer>
     </div>
   );
