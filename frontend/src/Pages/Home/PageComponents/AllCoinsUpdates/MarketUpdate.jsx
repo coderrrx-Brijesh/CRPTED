@@ -76,6 +76,7 @@ const MarketUpdate = () => {
         </button>
       </div>
         <CryptoList activeTab={activeTab} cryptoID={cryptoID} />
+        
     </div>
   );
 };

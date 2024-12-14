@@ -33,7 +33,7 @@ const NewsPage = () => {
   }, []);
 
   return (
-    <div className="news-container max-w-full px-10 py-10 bg-primary text-white">
+    <div className="news-container max-w-full px-10 py-10  text-white">
       <h1 className="text-center text-4xl font-bold my-4 pb-5 text-gray-100">Latest Crypto News</h1>
 
       {loading ? (
@@ -45,10 +45,10 @@ const NewsPage = () => {
           {newsData.map((news, index) => (
             <div
               key={index}
-              className="bg-gray-800 rounded-lg shadow-lg overflow-hidden transition-transform duration-500 transform hover:-translate-y-2"
+              className="bg-black rounded-lg shadow-lg overflow-hidden transition-transform duration-500 transform hover:-translate-y-2 border border-gray-700"
             >
               <a href={news.url} target="_blank" rel="noopener noreferrer">
-                <div className="h-48 w-full overflow-hidden">
+                <div className="h-48 w-full overflow-hidden m-auto">
                   <img
                     src={news.urlToImage || '/default-image.jpg'}
                     alt={news.title}

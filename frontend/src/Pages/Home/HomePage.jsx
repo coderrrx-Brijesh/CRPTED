@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "../../components/ui/button";
+
 import homePageBanner from "../../assets/hero-banner.png";
 import { TypedComponent } from "./PageComponents/Typed";
 import TopCryptoDetails from "./PageComponents/TopCryptoDetails";
@@ -46,9 +46,7 @@ export const HomePage = () => {
         <div>
           <MarketUpdate />
           <NewsSection />
-        </div>
-        <WhatIsCrypto />
-        <div>
+          <WhatIsCrypto />
           <Footer />
         </div>
       </div>

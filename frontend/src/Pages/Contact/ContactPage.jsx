@@ -23,14 +23,7 @@ export const ContactPage = () => {
         </div>
         <div className="flex flex-col lg:flex-row gap-12">
           <div className="flex-1">
-            <img
-              src="/path/to/contact-page-image.jpg"
-              alt="Contact Illustration"
-              className="rounded-lg shadow-lg w-full h-auto object-cover"
-            />
-          </div>
-          <div className="flex-1">
-            <Card className="p-6 bg-secondary">
+            <Card className="p-6 bg-secondary w-1/2 m-auto">
               <CardHeader>
                 <CardTitle>Get in Touch</CardTitle>
               </CardHeader>

@@ -2,7 +2,7 @@ import React from "react";
 import laptopBanner from "../../../assets/laptop-banner.png";
 const Cryptex = () => {
   return (
-    <section className="bg-primary text-gray-300 py-12">
+    <section className=" text-gray-300 py-12">
       <div className="container mx-auto flex flex-col lg:flex-row items-center gap-10 px-6">
         {/* Image Section */}
         <div className="w-full lg:w-1/2">

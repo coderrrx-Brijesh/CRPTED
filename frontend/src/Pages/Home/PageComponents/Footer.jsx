@@ -2,20 +2,20 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-white py-10">
+    <footer className="bg-black text-gray-400 py-10 border-t b ">
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
         {/* Contact Section */}
         <div className="contact space-y-4">
-          <h2 className="text-3xl font-bold mb-4 text-yellow-400">CRPTED</h2>
+          <h2 className="text-3xl font-bold mb-4  text-yellow-400">CRPTED</h2>
           <p className="text-lg">Let's talk! <span role="img" aria-label="thumbs up">👍</span></p>
           <p className="text-lg">+12 345 678 9101</p>
           <p className="text-lg">hello.cryptex@gmail.com</p>
-          <p className="text-lg">Cecilia Chapman 711-2880 Nulla St. Mankato Mississippi 96522</p>
+          <p className="text-lg">ABV IIITM Gwalior</p>
         </div>
 
         {/* Products Section */}
         <div className="products space-y-4">
-          <h3 className="text-2xl font-semibold mb-4">PRODUCTS</h3>
+          <h3 className="text-2xl font-semibold mb-4  text-white">PRODUCTS</h3>
           <ul className="space-y-2">
             <li className="hover:text-yellow-300 cursor-pointer">Spot</li>
             <li className="hover:text-yellow-300 cursor-pointer">Inverse Perpetual</li>
@@ -28,7 +28,7 @@ const Footer = () => {
 
         {/* Services Section */}
         <div className="services space-y-4">
-          <h3 className="text-2xl font-semibold mb-4">SERVICES</h3>
+          <h3 className="text-2xl font-semibold mb-4  text-white">SERVICES</h3>
           <ul className="space-y-2">
             <li className="hover:text-yellow-300 cursor-pointer">Buy Crypto</li>
             <li className="hover:text-yellow-300 cursor-pointer">Markets</li>
@@ -41,7 +41,7 @@ const Footer = () => {
 
         {/* Support Section */}
         <div className="support space-y-4">
-          <h3 className="text-2xl font-semibold mb-4">SUPPORT</h3>
+          <h3 className="text-2xl font-semibold mb-4  text-white">SUPPORT</h3>
           <ul className="space-y-2">
             <li className="hover:text-yellow-300 cursor-pointer">Bybit Learn</li>
             <li className="hover:text-yellow-300 cursor-pointer">Help Center</li>
@@ -54,7 +54,7 @@ const Footer = () => {
 
         {/* About Section */}
         <div className="about space-y-4">
-          <h3 className="text-2xl font-semibold mb-4">ABOUT US</h3>
+          <h3 className="text-2xl font-semibold mb-4  text-white">ABOUT US</h3>
           <ul className="space-y-2">
             <li className="hover:text-yellow-300 cursor-pointer">About Bybit</li>
             <li className="hover:text-yellow-300 cursor-pointer">Authenticity Check</li>
@@ -66,8 +66,8 @@ const Footer = () => {
       </div>
 
       {/* Footer Bottom */}
-      <div className="footer-bottom mt-8 text-center">
-        <p className="text-lg">© 2025 Cryptex All Rights Reserved by <a href="https://codewithsadee.com" className="text-blue-400 underline hover:text-yellow-300">codeFELLAS</a></p>
+      <div className="footer-bottom mt-8 text-center  text-white">
+        <p className="text-lg">© 2025 Cryptex All Rights Reserved by <a href="" className="text-blue-400 underline hover:text-yellow-300">codeFELLAS</a></p>
         <div className="social-icons flex justify-center space-x-6 mt-6">
           <a href="#" className="text-blue-500 hover:text-white text-2xl transition-colors duration-300"><i className="fab fa-facebook-f"></i></a>
           <a href="#" className="text-blue-400 hover:text-white text-2xl transition-colors duration-300"><i className="fab fa-twitter"></i></a>
