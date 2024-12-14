@@ -11,7 +11,7 @@ const MarketUpdate = () => {
     <div className="m-10 bg-black p-5 rounded-lg text-white h-screen">
       <div className='flex items-top justify-between'>
         <h2 className="text-2xl font-bold mb-10">Market Update</h2>
-        <SearchBar onSearch={onSearch}></SearchBar>
+        <SearchBar onSearch={onSearch} placeholder={"Search by Crypto Name"}></SearchBar>
       </div>
       <div className="flex justify-around items-center mb-4">
         <button

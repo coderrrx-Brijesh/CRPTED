@@ -3,166 +3,192 @@ import React, { useState, useContext, useEffect } from "react";
 import { Button } from "../../components/ui/button";
 import { Card, CardHeader, CardContent } from "../../components/ui/card";
 import { Input } from "../../components/ui/input";
-import {
-  Select,
-  SelectItem,
-  SelectTrigger,
-  SelectContent,
-} from "../../components/ui/select";
-import { ArrowLeftRight } from "lucide-react";
+import { Select, SelectItem, SelectTrigger, SelectContent } from "../../components/ui/select";
 import CryptoContext from "../../Context/CryptoContext";
 import { SearchBar } from "@/components/SearchBar";
-import {ListUsers} from "./PageComponents/ListUsers"
-export const TransferCryptoPage= ()=>{
-  const { allCryptoData } = useContext(CryptoContext);
-  const [sellAmount, setSellAmount] = useState();
-  const [receiveAmount, setReceiveAmount] = useState(0);
-  const [feeAmount, setFeeAmount] = useState(0);
-  const [sellCurrency, setSellCurrency] = useState("BTC");
-  const [receiveCurrency, setReceiveCurrency] = useState("USD");
-  const [localCurrency, setLocalCurrency] = useState("USD");
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import {RandomAvatar} from "./PageComponents/RandomAvatar";
+export const TransferCryptoPage = () => {
+  const { allCryptoData, currency, setCurrency } = useContext(CryptoContext);
   const [allUsers, setAllUsers] = useState([]);
-
   const [userName, setUserName] = useState("");
-  async function getAllUsers(){
-    const response = await axios.get(`http://localhost:3000/api/v1/allusersdata`);
-    setAllUsers(response.data);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [transferAmount, setTransferAmount] = useState("");
+  const [transferCoin, setTransferCoin] = useState("Bitcoin");
+  const [cryptoCount, setCryptoCount] = useState();
+  const [loading, setLoading] = useState(false);
+  const [isDataReady, setIsDataReady] = useState(false);
+
+  async function getAllUsers() {
+    setLoading(true);
+    try {
+      const response = await axios.get(`http://localhost:3000/api/v1/allusersdata`);
+      setAllUsers(response.data);
+    } catch (error) {
+      console.error("Failed to fetch users:", error);
+    } finally {
+      setLoading(false);
+    }
   }
+
   useEffect(() => {
     getAllUsers();
-  },[])
-  
-  const onsearch =(userName)=>{
+  }, []);
+
+  const onSearch = (userName) => {
     setUserName(userName);
+  };
+
+  const toggleCurrency = () => {
+    const newCurrency = currency === "USD" ? "INR" : "USD";
+    setCurrency(newCurrency);
+    setIsDataReady(false);
+  };
+
+  function calculateTotal() {
+    if (!transferCoin || !cryptoCount) {
+      setTransferAmount(0);
+      return;
+    }
+    const cryptoPrice = allCryptoData?.find(
+      (crypto) => crypto.name.toLowerCase() === transferCoin.toLowerCase()
+    );
+    if (cryptoPrice) {
+      setTransferAmount(cryptoCount * cryptoPrice.current_price);
+    } else {
+      setTransferAmount(0);
+    }
   }
 
-  const handleSwap = () => {
-    const sellObj = allCryptoData.find(
-      (crypto) => crypto.symbol.toLowerCase() === sellCurrency.toLowerCase()
-    );
-    const receiveRate = localCurrency === "USD" ? 80 : 1; // Assuming 1 USD = 80 INR
-  
-    if (sellObj && sellObj.current_price) {
-      const calculatedAmount =
-        (sellAmount * sellObj.current_price) / receiveRate;
-      setReceiveAmount(calculatedAmount.toFixed(2));
-      setFeeAmount((calculatedAmount * 0.005).toFixed(2));
-    } else {
-      console.error("Invalid data for conversion. Check allCryptoData or sellCurrency.");
+  useEffect(() => {
+    if (allCryptoData.length > 0) {
+      setIsDataReady(true);
+    }
+  }, [allCryptoData]);
+
+  useEffect(() => {
+    if (isDataReady) {
+      calculateTotal();
+    }
+  }, [isDataReady, transferCoin, cryptoCount]);
+
+  const handleCryptoCountChange = (e) => {
+    const value = e.target.value;
+    if (value >= 0) {
+      setCryptoCount(value);
     }
   };
 
+  const selectUser = (user) => {
+    setSelectedUser(user);
+    setUserName("");  // Clear the search term after selecting a user
+  };
+
+  const currencySymbol = currency === "USD" ? "$" : "₹";
+
   return (
-    <div className="bg-[#0b0b0b] h-full flex flex-col items-center px-8 py-10 text-white">
-      <h1 className="text-4xl font-bold mb-10">Sell Crypto</h1>
-      <SearchBar onSearch={onsearch}/>
+    <div className="min-h-screen flex flex-col items-center px-6 sm:px-10 py-10 bg-gradient-to-br from-black via-[#2c0146] to-[#1e0c34] text-white">
+      <h1 className="text-4xl font-bold mb-10 text-center text-[#e6ceff]">
+        Transfer Crypto
+      </h1>
 
-      {
-  userName && (
-    <div>
-      {
-        allUsers
-          .filter((user) => user.userName.toLowerCase().startsWith(userName.toLowerCase()))
-          .map((user, index) => (
-            <ListUsers key={index} user={user} />
-          ))
-      }
-    </div>
-  )
-}
-
-
-      <div className="flex justify-between items-center">
-        {/* Card 1 */}
-        <Card className="w-full max-w-lg bg-gray-800 rounded-lg m-14">
-          <CardHeader className="text-lg font-medium text-white">You Sell</CardHeader>
-          <CardContent className="flex flex-col gap-4">
-            <div className="flex items-center gap-4">
-              <Input
-                type="number"
-                value={sellAmount}
-                onChange={(e) => setSellAmount(Number(e.target.value))}
-                className="flex-1 text-white bg-black border border-gray-700 rounded-lg p-2"
-                placeholder="0"
-              />
-              <Select
-                onValueChange={(value) => setSellCurrency(value)}
-                value={sellCurrency}
-              >
-                <SelectTrigger className="w-24 bg-gray-800 text-white border border-gray-400 rounded-lg">
-                  <span>{sellCurrency}</span>
-                </SelectTrigger>
-                <SelectContent className="bg-gray-800 h-60">
-                  {allCryptoData.slice(0, 30).map((crypto) => (
-                    <SelectItem
-                      className="text-white flex items-center"
-                      value={crypto.symbol}
-                      key={crypto.symbol}
-                    >
-                      <div className="flex items-center">
-                        <div className="mr-2">{crypto.symbol}</div>
-                        <img
-                          src={crypto.image}
-                          alt={`${crypto.name} logo`}
-                          className="w-6"
-                        />
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <p className="text-sm text-gray-400">{sellAmount} {sellCurrency}</p>
-          </CardContent>
-        </Card>
-
-        <Button
-          variant="ghost"
-          className="my-4 text-white-800 hover:bg-blue-500 bg-blue-700"
-          onClick={handleSwap}
-        >
-          <ArrowLeftRight className="w-10 h-10 font-extrabold" />
-        </Button>
-
-        {/* Card 2 */}
-        <Card className="w-full max-w-lg bg-gray-800 rounded-lg m-14">
-          <CardHeader className="text-lg font-medium text-white">You Receive</CardHeader>
-          <CardContent className="flex flex-col gap-4">
-            <div className="flex items-center gap-4">
-              <Input
-                type="number"
-                value={receiveAmount}
-                className="flex-1 text-white bg-black border-grey-600 rounded-lg p-2"
-                placeholder="0"
-                disabled
-              />
-              <Select
-                onValueChange={(value) => setLocalCurrency(value)}
-                value={localCurrency}
-              >
-                <SelectTrigger className="w-24 bg-gray-800 text-white border border-gray-400 rounded-lg">
-                  <span>{localCurrency}</span>
-                </SelectTrigger>
-                <SelectContent className="bg-gray-800 h-20">
-                  <SelectItem className="text-white" value="USD">USD</SelectItem>
-                  <SelectItem className="text-white" value="INR">INR</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="text-sm text-gray-400 flex justify-between">
-              <span>{receiveAmount} {localCurrency}</span>
-              <span className="text-xs">~Transaction Fee {feeAmount} {localCurrency}</span>
-            </div>
-          </CardContent>
-        </Card>
+      {/* Search Bar */}
+      <div className="mb-6 w-full max-w-md relative flex justify-center">
+        <SearchBar onSearch={onSearch} placeholder={"Search by Username"} />
+        {userName && (
+          <div className="absolute top-[80%] w-full bg-gray-800 py-2 rounded-lg shadow-lg z-10">
+            {allUsers
+              .filter((user) => user.userName.toLowerCase().startsWith(userName.toLowerCase()))
+              .map((user, index) => (
+                <div
+                  key={index}
+                  className="flex items-center p-3 hover:bg-gray-700 rounded-md cursor-pointer"
+                  onClick={() => selectUser(user)}
+                >
+                  <Avatar className="mr-3 border-2 border-purple-600 p-1">
+                  <AvatarImage
+                      src={`https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortFlat&accessoriesType=Kurt&facialHairType=BeardLight&clotheType=Hoodie&eyeType=Happy&eyebrowType=Default&mouthType=Smile&skinColor=Light&seed=${user.firstName} ${user.lastName}`}
+                      alt={user.userName}
+                  />
+                    <AvatarFallback>{user.userName[0]}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <p className="font-medium">{user.firstName} {user.lastName}</p>
+                    <p className="text-sm text-gray-400">{user.userName}</p>
+                  </div>
+                </div>
+              ))}
+          </div>
+        )}
       </div>
 
-      <Button className="mt-8 bg-blue-600 px-6 py-3 rounded-lg hover:bg-blue-700" onClick={handleSwap}>
-        Sell Now
-      </Button>
+      {/* Transfer Form */}
+      <Card className="bg-gray-900 p-6 rounded-lg w-full max-w-lg shadow-lg border border-[#6d28d9]">
+        <CardHeader className="text-2xl font-semibold text-center text-[#a78bfa]">
+          Select Crypto to Transfer
+        </CardHeader>
+        <CardContent>
+          <div className="mb-6">
+            <Select value={transferCoin} onValueChange={setTransferCoin}>
+              <SelectTrigger className="w-full bg-gray-700 text-white">
+                <div>{transferCoin}</div>
+              </SelectTrigger>
+              <SelectContent>
+                {allCryptoData?.map((crypto, index) => (
+                  <SelectItem key={index} value={crypto.name}>
+                    {crypto.name} ({crypto.symbol})
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="mb-6">
+            <Input
+              type="number"
+              placeholder="Number of Coins to Transfer"
+              value={cryptoCount}
+              onChange={handleCryptoCountChange}
+              className="text-white bg-gray-700 text-sm rounded-lg block w-full p-2.5"
+            />
+          </div>
+
+          <div className="text-sm text-gray-400 mb-6">
+            Amount to Transfer: {currencySymbol}
+            {transferAmount}
+          </div>
+
+          <div className="flex justify-between items-center">
+            <Button
+              onClick={toggleCurrency}
+              className="bg-[#9333ea] hover:bg-[#7e22ce] text-white px-4 py-2 rounded-lg transition-all"
+            >
+              Switch to {currency === "USD" ? "INR" : "USD"}
+            </Button>
+            <p className="text-sm text-gray-400">Current Currency: {currency}</p>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Selected User Info */}
+      {selectedUser && (
+        <div className="mt-6 bg-gray-800 p-4 rounded-lg shadow-lg">
+          <h2 className="text-lg font-semibold mb-2">Recipient</h2>
+          <div className="flex items-center">
+            <Avatar className="mr-3 border-2 border-purple-600 p-1">
+              <AvatarImage
+                src={`https://avataaars.io/?avatarStyle=Circle&topType=ShortHairShortFlat&accessoriesType=Kurt&facialHairType=BeardLight&clotheType=Hoodie&eyeType=Happy&eyebrowType=Default&mouthType=Smile&skinColor=Light&seed=${selectedUser.firstName} ${selectedUser.lastName}`}
+                alt={selectedUser.userName}
+              />
+              <AvatarFallback>{selectedUser.userName[0]}</AvatarFallback>
+            </Avatar>
+            <div>
+              <p className="font-medium">{selectedUser.firstName } {selectedUser.lastName}</p>
+              <p className="text-sm text-gray-400">{selectedUser.userName}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
-
-
-
