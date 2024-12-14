@@ -6,6 +6,7 @@ import TopCryptoDetails from "./PageComponents/TopCryptoDetails";
 import MarketUpdate from "./PageComponents/AllCoinsUpdates/MarketUpdate";
 import WhatIsCrypto from "./PageComponents/WhatIsCrypto";
 import "./HomePage.css";
+import NewsSection from "./PageComponents/NewsSection/NewsSection";
 import Footer from "./PageComponents/Footer";
 
 export const HomePage = () => {
@@ -44,6 +45,7 @@ export const HomePage = () => {
         <TopCryptoDetails />
         <div>
           <MarketUpdate />
+          <NewsSection />
         </div>
         <WhatIsCrypto />
         <div>
