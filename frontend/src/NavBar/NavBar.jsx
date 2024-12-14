@@ -1,26 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import LogoImg from "../assets/Icons/Logo.png";
 import { DropdownMenubar } from "./NavBarComponents/DropdownMenubar";
 import { WalletButton } from "./NavBarComponents/WalletButton";
 import LoginPopup from "./NavBarComponents/LoginPopup";
-import SignupPopup from "./NavBarComponents/SignupPopup"; 
+import SignupPopup from "./NavBarComponents/SignupPopup";
 import LoginContext from "../Context/LogedinContext";
 import { Button } from "../components/ui/button";
 import { WalletIcon } from "lucide-react";
 
 export const NavBar = () => {
-  const { isLoggedIn } = useState(LoginContext);
-  const [showPopup, setShowPopup] = useState(null); 
+  const { isLoggedIn } = useContext(LoginContext); // Properly consume the LoginContext
+  const [showPopup, setShowPopup] = useState(null);
 
   const handlePopupToggle = (type) => {
     setShowPopup((prev) => (prev === type ? null : type));
   };
 
+  // Close popup when the user logs in
+  useEffect(() => {
+    if (isLoggedIn) {
+      setShowPopup(null);
+    }
+  }, [isLoggedIn]);
+
   return (
-    <div >
-      <nav className="flex items-center h-1/5 justify-between p-4 bg-black min-w-1 font-semibold text-2xl">
+    <div>
+      <nav className="flex items-center justify-between p-4 bg-black min-w-96 font-semibold text-2xl">
         {/* Logo and App Title */}
-        <div className="flex items-center space-x-4 bg-white rounded-md p-2.5 ml-4 ">
+        <div className="flex items-center space-x-4 bg-white rounded-md p-2.5 ml-4">
           <div id="AppTitle" className="text-black text-3xl font-bold">
             CRPTED
           </div>
@@ -38,10 +45,10 @@ export const NavBar = () => {
             About
           </a>
           <a href="/TradeCrypto" className="text-gray-300 hover:text-white">
-          Trade
+            Trade
           </a>
           <a href="/TransferCrypto" className="text-gray-300 hover:text-white">
-          Transfer
+            Transfer
           </a>
           <a href="/service" className="text-gray-300 hover:text-white">
             Services
@@ -52,7 +59,7 @@ export const NavBar = () => {
         </div>
 
         {isLoggedIn ? (
-          <div className="flex space-x-8 ">
+          <div className="flex space-x-8">
             <WalletButton onClick={() => alert("hi")} />
             <DropdownMenubar />
           </div>
@@ -78,7 +85,7 @@ export const NavBar = () => {
 
       {/* Popup Components */}
       {showPopup === "login" && (
-        <div className="fixed flex items-center justify-center inset-0 z-50 backdrop-blur ">
+        <div className="fixed flex items-center justify-center inset-0 z-50 backdrop-blur">
           <LoginPopup />
           <Button
             onClick={() => setShowPopup(null)}
@@ -89,7 +96,7 @@ export const NavBar = () => {
         </div>
       )}
       {showPopup === "signup" && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur ">
+        <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur">
           <SignupPopup />
           <Button
             onClick={() => setShowPopup(null)}
