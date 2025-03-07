@@ -13,9 +13,12 @@ import {
 } from "../../components/ui/dropdown-menu";
 import LoginContext from "../../Context/LogedinContext";
 
-
 export const DropdownMenubar = ({ user }) => {
   const { setIsLoggedIn } = useContext(LoginContext);
+
+  if (!user) {
+    return null;
+  }
 
   const logouthandler = () => {
     setIsLoggedIn(false);
@@ -35,7 +38,7 @@ export const DropdownMenubar = ({ user }) => {
 
       <DropdownMenuContent align="end" className="w-48">
         <DropdownMenuItem asChild>
-          <a className="text-gray-700">{user.firstName}</a>
+          <a className="text-gray-700">{user.firstName || "User"}</a>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <a href="/service" className="text-gray-700">

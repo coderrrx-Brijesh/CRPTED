@@ -1,11 +1,10 @@
 import React, { useState, useContext } from "react";
-import axios from "axios";
+import { api } from "../../api";
 import LoginContext from "../../Context/LogedinContext";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 const LoginPopup = ({ setuser }) => {
-  const { setIsLoggedIn } = useContext(LoginContext);
-  const [alert, setAlert] = useState(null);
+  const { login } = useContext(LoginContext);
   const [formData, setFormData] = useState({
     userName: "",
     password: "",
@@ -23,28 +22,34 @@ const LoginPopup = ({ setuser }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
-    setAlert(null);
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/v1/signin",
-        formData
-      );
-      console.log("Login successful:", response.data.user);
+      const response = await api.post("/signin", formData);
+      console.log("Login successful:", response.data);
+
+      login(response.data.user, response.data.token);
       setuser(response.data.user);
-      setIsLoggedIn(true);
     } catch (err) {
       console.error("Login failed:", err);
-      setError(
-        err.response?.data?.message || "An error occurred. Please try again."
-      );
+      let errorMessage = "An error occurred. Please try again.";
+
+      if (err.response) {
+        if (err.response.status === 401) {
+          errorMessage = "Invalid username or password.";
+        } else if (err.response.status === 404) {
+          errorMessage = "User not found.";
+        } else {
+          errorMessage = "Login failed. Please try again later.";
+        }
+      } else if (err.request) {
+        errorMessage = "No response from server. Please check your network.";
+      }
+
+      setError(errorMessage);
     }
   };
   const handleExternalLogin = (service) => {
-    setAlert({
-      title: "Hola Tester !!!",
-      description: ` ${service} login isn't Ready yet.`,
-    });
+    // This function is removed as per the instructions
   };
 
   return (
@@ -55,13 +60,7 @@ const LoginPopup = ({ setuser }) => {
             <form className="flex flex-col gap-4 pb-4" onSubmit={handleLogin}>
               <h1 className="mb-4 text-2xl font-bold dark:text-white">Login</h1>
 
-              {error && <div className="text-sm text-red-500">{error}</div>}
-              {alert && (
-                <Alert>
-                  <AlertTitle>{alert.title}</AlertTitle>
-                  <AlertDescription>{alert.description}</AlertDescription>
-                </Alert>
-              )}
+              {error && <p className="text-sm text-red-600 mt-2">{error}</p>}
 
               {["userName", "password"].map((field) => (
                 <div key={field}>
@@ -88,9 +87,6 @@ const LoginPopup = ({ setuser }) => {
                         value={formData[field]}
                         onChange={handleChange}
                       />
-                      {error && (
-                        <p className="text-sm text-red-600 mt-1">{error}</p>
-                      )}
                     </div>
                   </div>
                 </div>
@@ -106,7 +102,7 @@ const LoginPopup = ({ setuser }) => {
                   </span>
                 </button>
                 <button
-                onClick={()=>handleExternalLogin("Google")}
+                  onClick={() => handleExternalLogin("Google")}
                   type="button"
                   className="transition-colors focus:ring-2 p-0.5 disabled:cursor-not-allowed bg-white hover:bg-gray-100 text-gray-900 border border-gray-200 disabled:bg-gray-300 disabled:text-gray-700 rounded-lg"
                 >
@@ -141,11 +137,11 @@ const LoginPopup = ({ setuser }) => {
                         d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
                       ></path>
                     </svg>
-                    Sign up with Google
+                    Sign in with Google
                   </span>
                 </button>
                 <button
-                  onClick={()=>handleExternalLogin("Facebook")}
+                  onClick={() => handleExternalLogin("Facebook")}
                   type="button"
                   className="transition-colors focus:ring-2 p-0.5 disabled:cursor-not-allowed bg-white hover:bg-gray-100 text-gray-900 border border-gray-200 disabled:bg-gray-300 disabled:text-gray-700 rounded-lg"
                 >
@@ -168,7 +164,7 @@ const LoginPopup = ({ setuser }) => {
                         d="M43.5,24c0-10.5-8.5-19-19-19s-19,8.5-19,19c0,9.7,7.1,17.8,16.5,18.9v-13.3h-4.9v-5h4.9v-3.7c0-5,2.9-7.7,7.3-7.7c2.1,0,4.2,0.2,4.7,0.3v5h-3.3c-2.6,0-3.3,1.3-3.3,3.2v4.2h6.6l-1,5h-5.6v13.3c9.4-1.1,16.5-9.2,16.5-18.9z"
                       ></path>
                     </svg>
-                    Sign up with Facebook
+                    Sign in with Facebook
                   </span>
                 </button>
               </div>

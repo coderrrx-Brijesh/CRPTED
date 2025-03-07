@@ -1,15 +1,31 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const JWT_SECRET=process.env.JWT_SECRET;
+const JWT_SECRET = process.env.JWT_SECRET;
 
 const TokenAuth = (req, res, next) => {
   try {
-    const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
+    // Get token from different possible sources
+    let token;
+
+    // Check authorization header (Bearer token)
+    const authHeader = req.headers.authorization;
+    if (authHeader && authHeader.startsWith("Bearer ")) {
+      token = authHeader.split(" ")[1];
+    }
+
+    // If no token in auth header, check cookies
     if (!token) {
+      token = req.cookies.authToken_http || req.cookies.authToken;
+    }
+
+    // If still no token, return unauthorized
+    if (!token) {
+      console.log("No token found in request");
       return res.status(401).json({ message: "Authentication token missing" });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    // Verify token
+    const decoded = jwt.verify(token, JWT_SECRET);
     req.user = decoded; // Add user data to request object
     next();
   } catch (error) {
@@ -18,4 +34,4 @@ const TokenAuth = (req, res, next) => {
   }
 };
 
-module.exports = {TokenAuth};
+module.exports = { TokenAuth };

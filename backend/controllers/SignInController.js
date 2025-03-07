@@ -12,7 +12,10 @@ const signIn = async (req, res) => {
     }
 
     // Compare the provided password with the hashed password in the database
-    const isPasswordMatch = await bcrypt.compare(req.body.password, user.password);
+    const isPasswordMatch = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
     if (!isPasswordMatch) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
@@ -23,20 +26,32 @@ const signIn = async (req, res) => {
     };
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "1d" });
 
-    // Store the token as an HTTP-only cookie
-    res.cookie("token", token, {
-      httpOnly: true, // Prevent access from JavaScript
-      secure: process.env.NODE_ENV === "production", // Use HTTPS in production
+    // Set cookies for both HTTP-only and JavaScript-accessible cookies
+    // HTTP-only cookie for security (can't be accessed by JavaScript)
+    res.cookie("authToken_http", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
+      sameSite: "strict",
     });
 
-    // Successful sign-in response
+    // JavaScript-accessible cookie (for frontend auto-login)
+    // This is less secure but needed for client-side auth state
+    res.cookie("authToken", token, {
+      httpOnly: false,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+      sameSite: "strict",
+    });
+
+    // Successful sign-in response with token in body
     res.status(200).json({
       message: "Sign-in successful",
+      token: token, // Include token in response body
       user: {
         userName: user.userName,
         firstName: user.firstName,
-        lastName: user.lastName
+        lastName: user.lastName,
       },
     });
   } catch (error) {

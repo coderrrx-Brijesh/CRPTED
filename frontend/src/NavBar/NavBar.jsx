@@ -9,10 +9,12 @@ import { Button } from "../components/ui/button";
 import { WalletIcon } from "lucide-react";
 
 export const NavBar = () => {
+  const { isLoggedIn, user, setShowPopup, showPopup } =
+    useContext(LoginContext); // Add user from context
+  const [localUser, setUser] = useState(null);
 
-  const { isLoggedIn } = useContext(LoginContext); // Properly consume the LoginContext
-  const [showPopup, setShowPopup] = useState(null);
-  const [user, setUser] = useState(null);
+  // Use either the user from context or the local state
+  const currentUser = user || localUser;
 
   const handlePopupToggle = (type) => {
     setShowPopup((prev) => (prev === type ? null : type));
@@ -40,30 +42,49 @@ export const NavBar = () => {
 
         {/* Desktop React router links */}
         <div className="flex text-xl">
-          <a href="/" className="text-gray-300 hover:text-white   hover:bg-slate-900 p-2 rounded-md ">
+          <a
+            href="/"
+            className="text-gray-300 hover:text-white   hover:bg-slate-900 p-2 rounded-md "
+          >
             Home
           </a>
-          <a href="/about" className="text-gray-300 hover:text-white  hover:bg-slate-900 p-2 rounded-md">
+          <a
+            href="/about"
+            className="text-gray-300 hover:text-white  hover:bg-slate-900 p-2 rounded-md"
+          >
             About
           </a>
-          <a href="/TradeCrypto" className="text-gray-300 hover:text-white  hover:bg-slate-900 p-2 rounded-md">
+          <a
+            href="/TradeCrypto"
+            className="text-gray-300 hover:text-white  hover:bg-slate-900 p-2 rounded-md"
+          >
             Trade
           </a>
-          <a href="/TransferCrypto" className="text-gray-300 hover:text-white  hover:bg-slate-900 p-2 rounded-md">
+          <a
+            href="/TransferCrypto"
+            className="text-gray-300 hover:text-white  hover:bg-slate-900 p-2 rounded-md"
+          >
             Transfer
           </a>
-          <a href="/service" className="text-gray-300 hover:text-white  hover:bg-slate-900 p-2 rounded-md">
+          <a
+            href="/service"
+            className="text-gray-300 hover:text-white  hover:bg-slate-900 p-2 rounded-md"
+          >
             Services
           </a>
-          <a href="/contact" className="text-gray-300 hover:text-white  hover:bg-slate-900 p-2 rounded-md">
+          <a
+            href="/contact"
+            className="text-gray-300 hover:text-white  hover:bg-slate-900 p-2 rounded-md"
+          >
             Contact
           </a>
         </div>
 
-        {isLoggedIn ? (
+        {/* Only render DropdownMenubar when both isLoggedIn is true AND currentUser is not null */}
+        {isLoggedIn && currentUser ? (
           <div className="flex space-x-8">
             <WalletButton onClick={() => alert("coming soon")} />
-            <DropdownMenubar user={user}/>
+            <DropdownMenubar user={currentUser} />
           </div>
         ) : (
           <div className="flex space-x-8">
@@ -110,6 +131,5 @@ export const NavBar = () => {
       )}
       <div className="border-slate-700 border-t"></div>
     </div>
-
   );
 };
