@@ -16,7 +16,7 @@ const NewsPage = () => {
             from: '2024-11-14',
             sortBy: 'publishedAt',
             language: 'en',
-            apiKey: '733bec34464d4f05912d6f7246841045',
+            apiKey: '738082046b0242a7bbad05a70b843adf',
             pageSize: 9,
           },
         });

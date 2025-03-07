@@ -8,6 +8,7 @@ import WhatIsCrypto from "./PageComponents/WhatIsCrypto";
 import "./HomePage.css";
 import NewsSection from "./PageComponents/NewsSection/NewsSection";
 import Footer from "./PageComponents/Footer";
+import { Button } from "@/components/ui/button";
 
 export const HomePage = () => {
   console.log("home");
@@ -27,11 +28,7 @@ export const HomePage = () => {
               Coin CRPTED is the <TypedComponent className="features" /> <br />{" "}
               way to buy & sell crypto asset exchange.
             </p>
-            <button class="relative inline-flex items-center justify-center rounded-2xl p-0.5 mb-2 me-2 overflow-hidden text-2xl font-medium text-gray-900 group bg-gradient-to-br from-purple-800 to-indigo-600 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
-              <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-2xl bg-opacity-0">
-                Get Started Now
-              </span>
-            </button>
+            <Button className="w-1/2 border bg-indigo-800">Get Started Now</Button>
           </div>
           <div className="mr-8 flex flex-col items-center gap-10 w-2/5 justify-center opacity-90">
             <img

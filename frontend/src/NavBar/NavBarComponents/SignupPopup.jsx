@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useState, useContext } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-
+import { Navigate } from "react-router-dom";
+import LoginContext from "@/Context/LogedinContext";
 //  if we want ot automatic sigin with signup
 // import LoginContext from "../../Context/LogedinContext";
-
 const SignInPopup = () => {
+  const { setShowPopup,showPopup } = useContext(LoginContext);
   //   const { setIsLoggedIn } = useContext(LoginContext);
-  const [alert, setAlert] = useState(null);
+  const [alertMessage, setAlertMessage] = useState(null);
   const [formData, setFormData] = useState({
     userName: "",
     firstName: "",
@@ -26,7 +27,7 @@ const SignInPopup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setAlert(null);
+    setAlertMessage(null);
     setErrors({});
     try {
       const response = await axios.post(
@@ -35,18 +36,34 @@ const SignInPopup = () => {
       );
       // setIsLoggedIn(true); // Assuming login is successful and user is logged in
       console.log("Response:", response.data);
-      alert("Sign up successful!");
+      setAlertMessage({ title: "Success", description: "Sign up successful!" });
+      setShowPopup("login")
+
     } catch (error) {
-      if (error.response && error.response.data.errors) {
-        setErrors(error.response.data.errors); // Assuming server sends errors in this format
+      const newErrors = {};
+      
+      if (error.response) {
+        if (error.response.status === 409) {
+          newErrors.userName = "Username already taken.";
+        } else if (error.response.status === 400) {
+          newErrors.form = error.response.data.message;
+        } else if (error.response.data && error.response.data.errors) {
+          Object.assign(newErrors, error.response.data.errors);
+        } else {
+          newErrors.form = "Sign up failed. Please try again later.";
+        }
+      } else if (error.request) {
+        newErrors.form =
+          "No response from server. Please check your network connection.";
       } else {
-        console.error("Error:", error);
-        alert("Sign up failed. Please try again.");
+        newErrors.form = "An unexpected error occurred: " + error.message;
       }
+
+      setErrors(newErrors);
     }
   };
   const handleExternalLogin = (service) => {
-    setAlert({
+    setAlertMessage({
       title: "Hola Tester !!!",
       description: ` ${service} login isn't Ready yet.`,
     });
@@ -61,11 +78,16 @@ const SignInPopup = () => {
               <h1 className="mb-4 text-2xl font-bold dark:text-white">
                 Sign Up
               </h1>
-              {alert && (
+              {alertMessage && (
                 <Alert>
-                  <AlertTitle>{alert.title}</AlertTitle>
-                  <AlertDescription>{alert.description}</AlertDescription>
+                  <AlertTitle>{alertMessage.title}</AlertTitle>
+                  <AlertDescription>
+                    {alertMessage.description}
+                  </AlertDescription>
                 </Alert>
+              )}
+              {errors.form && (
+                <p className="text-sm text-red-600 mt-2">{errors.form}</p>
               )}
               {["userName", "firstName", "lastName", "password"].map(
                 (field) => (
@@ -140,7 +162,7 @@ const SignInPopup = () => {
                   </span>
                 </button>
                 <button
-                onClick={()=>handleExternalLogin("Google")}
+                  onClick={() => handleExternalLogin("Google")}
                   type="button"
                   className="transition-colors focus:ring-2 p-0.5 disabled:cursor-not-allowed bg-white hover:bg-gray-100 text-gray-900 border border-gray-200 disabled:bg-gray-300 disabled:text-gray-700 rounded-lg"
                 >

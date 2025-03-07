@@ -5,12 +5,15 @@ import App from "./App.jsx";
 import { CryptoContextProvider } from "./Context/CryptoContext";
 import { LogedinProvider } from "./Context/LogedinContext";
 import { Toaster } from "react-hot-toast";
+import axios from "axios";
+
+// Global axios configuration
+
 createRoot(document.getElementById("root")).render(
   <CryptoContextProvider>
     <LogedinProvider>
-    <Toaster /> 
+      <Toaster />
       <App />
     </LogedinProvider>
-    </CryptoContextProvider>
- 
+  </CryptoContextProvider>
 );
