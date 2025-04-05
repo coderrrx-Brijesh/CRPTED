@@ -15,21 +15,13 @@ export const CryptoContextProvider = (props) => {
     try {
       const INRoptions = {
         method: "GET",
-        url: "https://api.coingecko.com/api/v3/coins/markets",
+        url: "http://localhost:3000/proxy/coingecko/coins/markets",
         params: { vs_currency: "inr" },
-        headers: {
-          accept: "application/json",
-          "x-cg-demo-api-key": "CG-PAD5i6MjsqAgusMstpzG8Mpb",
-        },
       };
       const USDoptions = {
         method: "GET",
-        url: "https://api.coingecko.com/api/v3/coins/markets",
+        url: "http://localhost:3000/proxy/coingecko/coins/markets",
         params: { vs_currency: "usd" },
-        headers: {
-          accept: "application/json",
-          "x-cg-demo-api-key": "CG-PAD5i6MjsqAgusMstpzG8Mpb",
-        },
       };
 
       const [INRres, USDres] = await Promise.all([
@@ -53,16 +45,12 @@ export const CryptoContextProvider = (props) => {
       const fromTimestamp = Math.floor(timeAgo / 1000); // Convert to Unix timestamp
 
       const response = await axios.get(
-        `https://api.coingecko.com/api/v3/coins/${coinId}/market_chart/range`,
+        `http://localhost:3000/proxy/coingecko/coins/${coinId}/market_chart/range`,
         {
           params: {
             vs_currency: currency,
             from: fromTimestamp,
             to: Math.floor(Date.now() / 1000), // Current time in Unix timestamp
-          },
-          headers: {
-            accept: "application/json",
-            "x-cg-demo-api-key": "CG-PAD5i6MjsqAgusMstpzG8Mpb",
           },
         }
       );

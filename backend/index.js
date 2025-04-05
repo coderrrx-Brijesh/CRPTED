@@ -28,6 +28,10 @@ app.use("/api/v1", signRoutes);
 const dataRoutes = require("./Routes/DataRoutes");
 app.use("/api/v1", dataRoutes);
 
+// Add proxy routes to handle external API requests
+const proxyRoutes = require("./Routes/ProxyRoutes");
+app.use("/proxy", proxyRoutes);
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
