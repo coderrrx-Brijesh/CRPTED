@@ -31,7 +31,7 @@ const CryptoList = ({ activeTab, cryptoID }) => {
                   crypto.id.toLowerCase().startsWith(cryptoID.toLowerCase())
                 );
                 if (filteredCoins.length > 0) {
-                  return filteredCoins.slice(0, 10).map((crypto, index) => (
+                  return filteredCoins.slice(0, 25).map((crypto, index) => (
                     <CryptoItem
                       key={crypto.id}
                       index={index + 1}
@@ -41,7 +41,7 @@ const CryptoList = ({ activeTab, cryptoID }) => {
                 }
                 return <p className="text-gray-400 text-center">No results found</p>;
               })()
-            : allCryptoData.slice(0, 10).map((crypto, index) => (
+            : allCryptoData.slice(0, 25).map((crypto, index) => (
                 <CryptoItem key={crypto.id} index={index + 1} crypto={crypto} />
               ))}
         </ScrollArea.Viewport>

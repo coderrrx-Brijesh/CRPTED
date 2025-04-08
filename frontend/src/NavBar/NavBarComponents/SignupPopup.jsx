@@ -31,7 +31,7 @@ const SignInPopup = () => {
     setErrors({});
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/signup",
+        process.env.REACT_APP_SIGNUP_API_URL,
         formData
       );
       // setIsLoggedIn(true); // Assuming login is successful and user is logged in

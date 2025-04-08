@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { api } from "../../api";
 import LoginContext from "../../Context/LogedinContext";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
 
 const LoginPopup = ({ setuser }) => {
   const { login } = useContext(LoginContext);
@@ -24,7 +24,7 @@ const LoginPopup = ({ setuser }) => {
     setError(null);
 
     try {
-      const response = await api.post("/signin", formData);
+      const response = await api.post(process.env.REACT_APP_SIGNIN_API_URL, formData);
       console.log("Login successful:", response.data);
 
       login(response.data.user, response.data.token);
