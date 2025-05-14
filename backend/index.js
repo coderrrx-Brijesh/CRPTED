@@ -10,7 +10,7 @@ const app = express();
 // cors for testing backend and front end together
 app.use(
   cors({
-    origin: "*", // Your frontend URL
+    origin: "https://crpted.vercel.app", // Your frontend URL
     credentials: true, // Important for cookies
   })
 );
