@@ -15,12 +15,12 @@ export const CryptoContextProvider = (props) => {
     try {
       const INRoptions = {
         method: "GET",
-        url: "http://localhost:3000/proxy/coingecko/coins/markets",
-        params: { vs_currency: "inr" },
+          url: "https://crpted.onrender.com/proxy/coingecko/coins/markets",
+          params: { vs_currency: "inr" },
       };
       const USDoptions = {
         method: "GET",
-        url: "http://localhost:3000/proxy/coingecko/coins/markets",
+        url: "https://crpted.onrender.com/proxy/coingecko/coins/markets",
         params: { vs_currency: "usd" },
       };
 
@@ -45,7 +45,7 @@ export const CryptoContextProvider = (props) => {
       const fromTimestamp = Math.floor(timeAgo / 1000); // Convert to Unix timestamp
 
       const response = await axios.get(
-        `http://localhost:3000/proxy/coingecko/coins/${coinId}/market_chart/range`,
+        `https://crpted.onrender.com/proxy/coingecko/coins/${coinId}/market_chart/range`,
         {
           params: {
             vs_currency: currency,
