@@ -10,7 +10,7 @@ const app = express();
 // cors for testing backend and front end together
 app.use(
   cors({
-    origin: "http://localhost:5173", // Your frontend URL
+    origin: "*", // Your frontend URL
     credentials: true, // Important for cookies
   })
 );
